@@ -43,3 +43,13 @@ Reference: iPad screenshots supplied on 2026-11-21 (Google vs notGoogle). This i
 ## Safety & scope
 
 The site retains the visible `notGoogle · demo` marker. Search navigation uses the official Google search URL. The credential form contains read-only demo values; no real password collection. The security reveal explains which events were stored locally.
+
+## V5.2 demo-only login (2026-11-22)
+- Two-step local sign-in for synthetic identity `demo@example.test`.
+- Synthetic password `LabOnly-123!`; input accepts **only** this value. Other input is discarded without storage or logging.
+- `demo.password.demonstrated` log entry contains event metadata, never the plaintext password.
+- Form has no `action`, uses `preventDefault`, and performs **no** network request.
+- A "Security Reveal" card shows the predefined fictional password and animated timeline: Browser UI → JavaScript reads synthetic value → No network request → What phishing could exploit.
+- Clearly labeled `notGoogle · Security Lab` throughout the login form; no real Google-account impersonation, authentication, or credential capture.
+- QA still needed: Chrome desktop, Safari iPad, Safari/Chrome phone; email-step Next, back, readonly account, show/hide password, wrong-password handling, preset fill, successful reveal, events export excluding plaintext.
+- For authentic external sign-in to real Google, use official OAuth/Google Identity Services, which does not share the Google account password with notGoogle.
