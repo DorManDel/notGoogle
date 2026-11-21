@@ -90,7 +90,7 @@ function render(){$('eventsOutput').textContent=JSON.stringify(events,null,2)}
 function toast(message){$('toast').textContent=message;$('toast').hidden=false;setTimeout(()=>$('toast').hidden=true,3500)}
 function panel(id,button){const open=$(id).hidden;for(const p of ['appsPanel','profilePanel'])$(p).hidden=true;for(const b of ['appsToggle','profileToggle'])$(b).setAttribute('aria-expanded','false');$(id).hidden=!open;$(button).setAttribute('aria-expanded',String(open));if(open)record('menu.open',{menu:id})}
 $('appsToggle').onclick=()=>panel('appsPanel','appsToggle');$('profileToggle').onclick=()=>panel('profilePanel','profileToggle');
-// Self-hosted reference artwork; unverified news/translate assets use external icon fallback.
+// Self-hosted reference artwork from open icon projects; see assets/icons/ATTRIBUTION.md.
 const apps=[
 ['חשבון','google','https://myaccount.google.com/','G'],
 ['Drive','drive','https://drive.google.com/','D'],
@@ -101,10 +101,10 @@ const apps=[
 ['חיפוש','google','https://www.google.com/','G'],
 ['יומן','calendar','https://calendar.google.com/','31'],
 ['Chrome','chrome','https://www.google.com/chrome/','C'],
-['חדשות','https://api.iconify.design/logos/google-news.svg','https://news.google.com/','N'],
+['חדשות','news','https://news.google.com/','N'],
 ['תמונות','photos','https://photos.google.com/','P'],
 ['Meet','meet','https://meet.google.com/','M'],
-['תרגום','https://api.iconify.design/logos/google-translate.svg','https://translate.google.com/','T'],
+['תרגום','translate','https://translate.google.com/','T'],
 ['Sheets','sheets','https://sheets.google.com/','S'],
 ['Docs','docs','https://docs.google.com/','D']
 ];
