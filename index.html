@@ -69,6 +69,47 @@ body,.country,.footer,.foot-links{background:#22242a}
 @media(min-width:1000px) and (max-width:1400px){.main{padding-top:clamp(52px,6.2vh,83px)}.search-form{width:min(100%,690px);margin-top:31px}.logo{font-size:97px}}
 @media(max-width:1050px){.climate-callout{position:static;transform:none;justify-content:center;white-space:normal;text-align:center;order:3;width:100%;line-height:1.5;margin-top:8px}.foot-links{row-gap:18px}}
 @media(max-width:600px){.app-symbol{width:38px;min-width:38px;height:39px}.app-symbol img.product-icon{width:34px;height:34px}.keyboard-icon{width:20px;height:20px}.climate-callout{font-size:12px}}
+
+/* V5.2: demo-only two-step sign in and reveal timeline */
+.signin-card{width:min(950px,calc(100vw - 36px));background:#101114;border:1px solid #42454e;border-radius:30px;padding:clamp(20px,3vw,36px);color:#e8eaed;box-shadow:0 22px 80px #000b;max-height:min(92dvh,800px);overflow:auto}
+.signin-brand{display:flex;align-items:center;gap:10px;color:#bec5cf;font-size:13px;letter-spacing:.01em}
+.signin-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(25px,6vw,65px);align-items:start;padding:30px 0 36px}
+.signin-intro h2{font-size:clamp(29px,3vw,40px);font-weight:400;margin:0 0 14px;line-height:1.22}
+.signin-intro p{font-size:17px;line-height:1.65;margin:0 0 20px;color:#c7c9d2}
+.signin-scope{display:inline-flex;font-size:10px;letter-spacing:.09em;color:#d5b96f;border:1px solid #6d6041;border-radius:20px;padding:7px 10px;direction:ltr}
+.demo-step[hidden],.demo-error[hidden],.demo-timeline[hidden]{display:none}
+.demo-step label:not(.signin-show){display:block;margin-bottom:7px;color:#d9dde3;font-size:14px}
+.demo-step input:not([type="checkbox"]){width:100%;padding:15px 16px;background:#101114;border:1px solid #81858c;color:#f2f3f7;border-radius:6px;margin:0;outline-offset:1px;font-size:16px}
+.demo-step input:focus{border-color:#a8c7fa}
+.demo-step input[readonly]{background:#1c1d22;cursor:default}
+.demo-help{color:#b7bdc6;font-size:13px;line-height:1.55;margin:11px 0 20px}
+.demo-help code{color:#e0e4ee;background:#282b34;border:1px solid #3b3d47;padding:2px 7px;border-radius:5px;white-space:nowrap}
+.signin-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:24px}
+.signin-actions .primary{background:#a8c7fa;color:#17263a;border-radius:24px;padding:12px 23px}
+.signin-actions .secondary{border:0;color:#a8c7fa}
+.signin-footer{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;color:#a8adb8;font-size:11px;border-top:1px solid #333741;padding-top:15px;direction:ltr}
+.identity-chip{display:inline-flex;gap:9px;align-items:center;margin-bottom:26px;padding:7px 12px;background:transparent;border:1px solid #6f7787;border-radius:20px;font-size:13px}
+.mini-avatar{display:grid;place-items:center;width:23px;height:23px;background:#365483;color:#fff;border-radius:50%;font-weight:bold}
+.signin-show{display:flex;align-items:center;gap:9px;margin-top:12px;color:#d7dce8;font-size:13px}
+.signin-show input{accent-color:#a8c7fa;width:17px;height:17px}
+.demo-fill{border:0;background:transparent;color:#a8c7fa;text-decoration:underline;font-size:13px;padding:5px 0}
+.demo-error{color:#ffb4ab;font-size:13px;line-height:1.55}
+.credential-summary{padding:14px;background:#1b2a35;border:1px solid #4b6177;border-radius:14px}
+.credential-title{font-size:14px;font-weight:bold;margin-bottom:12px}
+.credential-display{display:flex;flex-direction:column;gap:6px;background:#101823;padding:12px;border-radius:10px;overflow-wrap:anywhere}
+.credential-display strong{color:#f7d884;font-size:22px}
+.credential-caution{margin-top:12px;font-size:13px;line-height:1.6;color:#cdd7e2}
+.demo-timeline{margin-top:18px;border-right:2px solid #50627e;padding-right:16px}
+.demo-timeline>div{position:relative;padding:0 6px 14px;animation:demo-enter .28s ease-out both}
+.demo-timeline>div:nth-child(2){animation-delay:.12s}
+.demo-timeline>div:nth-child(3){animation-delay:.24s}
+.demo-timeline>div:nth-child(4){animation-delay:.36s}
+.timeline-node{position:absolute;right:-28px;top:0;background:#a8c7fa;color:#1c2840;border-radius:50%;font-size:12px;font-weight:bold;width:23px;height:23px;display:grid;place-items:center}
+.demo-timeline strong{font-size:14px}
+.demo-timeline p{font-size:12px;line-height:1.5;color:#bac5d4;margin:5px 0}
+@keyframes demo-enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){.modal{padding:12px}.signin-card{width:100%;border-radius:24px;padding:24px 19px}.signin-layout{grid-template-columns:1fr;gap:16px;padding:25px 0}.signin-intro h2{font-size:28px}.signin-intro p{font-size:14px;margin-bottom:10px}.signin-actions{margin-top:14px}}
+@media(prefers-reduced-motion:reduce){.demo-timeline>div{animation:none}}
 </style>
 </head>
 <body>
@@ -79,8 +120,43 @@ body,.country,.footer,.foot-links{background:#22242a}
 <main class="main"><div class="logo" aria-label="Google-inspired search demo">Google</div><form class="search-form" id="searchForm" action="https://www.google.com/search" method="GET"><div class="search-shell"><span class="search-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 5 5"/></svg></span><input name="q" id="query" type="search" aria-label="חיפוש" autocomplete="off"><button class="tool" type="button" id="keyboard" title="מיקוד שדה החיפוש" aria-label="מקלדת"><img class="keyboard-icon" src="assets/icons/keyboard.svg" alt="" aria-hidden="true"></button><button class="tool" type="button" id="mic" title="חיפוש קולי"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4m-4 0h8"/></svg></button><button class="tool" type="button" id="lens" title="Google Lens"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9V6a2 2 0 0 1 2-2h3m6 0h3a2 2 0 0 1 2 2v3m0 6v3a2 2 0 0 1-2 2h-3m-6 0H6a2 2 0 0 1-2-2v-3"/><circle cx="12" cy="12" r="3.5"/></svg></button><button class="ai-pill" type="button" id="ai">✦ מצב AI</button></div><div class="actions"><button class="action" type="submit">חיפוש ב-Google</button><button class="action" type="button" id="lucky">יותר מזל משכל</button></div></form><div class="langs">אפשר לחפש גם ב: <a href="https://www.google.com/?hl=en">English</a> <a href="https://www.google.com/?hl=ar">العربية</a></div></main>
 <footer class="footer"><div class="country">ישראל</div><div class="foot-links"><div><a href="https://about.google/">מידע כללי</a><a href="https://ads.google.com/">פרסום</a><a href="https://www.google.com/services/">עסקים</a><a href="https://www.google.com/search/howsearchworks/">כיצד פועל החיפוש</a></div><div><a href="https://policies.google.com/privacy">פרטיות</a><a href="https://policies.google.com/terms">תנאים</a><a href="https://www.google.com/preferences">הגדרות</a></div><a class="climate-callout" href="https://blog.google/company-news/outreach-and-initiatives/sustainability/our-third-decade-climate-action-realizing-carbon-free-future/" target="_blank" rel="noopener noreferrer"><span class="climate-leaf" aria-hidden="true">🍃</span><span>עשור שלישי לפעילות שלנו בתחום האקלים: <u>למידע נוסף</u></span></a></div></footer>
 <button id="touchReveal" class="touch-reveal" aria-label="פתיחת מצב הדגמה בלחיצות חוזרות" title="Tap 5 times to reveal"></button>
-<div class="modal" id="demoModal" hidden><div class="modal-card"><h2>🔐 Demo Login</h2><p>תרחיש לימודי עם פרטי דמה בלבד. אין להזין סיסמה אמיתית. הפרטים אינם נשלחים ל-Google או לשרת כלשהו.</p><form id="demoForm"><label>כתובת דמה<input type="email" value="demo@example.test" readonly></label><label>סיסמת דמה<input type="text" value="MySecret123!" readonly></label><div class="modal-row"><button type="button" class="secondary" id="demoCancel">ביטול</button><button type="submit" class="primary">הדגם שליחת טופס</button></div></form></div></div>
-<section id="lab" class="lab" hidden aria-label="Security reveal"><button class="secondary close" id="closeLab">✕ סגירה</button><h1>THIS WAS NOT GOOGLE.</h1><p class="sub">העיצוב יכול להרגיש מוכר, אבל זהות האתר נקבעת לפי הדומיין בשורת הכתובת, לא לפי הלוגו. זהו ניסוי notGoogle, והפעולות כאן מתועדות מקומית בלבד.</p><div class="lab-grid"><article class="lab-card"><h3>🧭 מסלול החיפוש</h3><ol><li>הקלדה בדף notGoogle</li><li>תיעוד מקומי של אירוע ההפניה</li><li>שליחת טופס GET לכתובת הרשמית של Google</li><li>Google מציג תוצאות בדומיין שלו</li></ol><p class="tiny">אין לנו גישה לתוצאות או לסיסמה של חשבון Google.</p></article><article class="lab-card"><h3>🔐 Credential Demo</h3><p>הדגמת סיסמה פיקטיבית שהוזנה בטופס הדמה. במתקפת פישינג אמיתית, שרת ששולט בטופס עשוי לקבל את הסיסמה.</p><div id="credentialResult">טרם הופעלה הדגמת ההתחברות.</div></article><article class="lab-card"><h3>📜 Event Log (local only)</h3><pre id="eventsOutput">[]</pre><button class="secondary" id="export">ייצוא JSON</button> <button class="secondary" id="clear">מחיקת אירועים</button></article><article class="lab-card"><h3>🛡️ כיצד מזהים?</h3><ul><li>בדקו את הדומיין המדויק, לא רק את העיצוב.</li><li>HTTPS אינו מוכיח שזה האתר שחשבתם.</li><li>סיסמאות יש להזין רק באתר או באפליקציה שאתם סומכים עליהם.</li><li>התחברות OAuth רשמית לא חושפת את הסיסמה לאתר צד שלישי.</li></ul></article></div></section>
+<div class="modal" id="demoModal" hidden role="dialog" aria-modal="true" aria-labelledby="demoLoginHeading">
+<div class="signin-card" dir="rtl">
+ <div class="signin-brand"><img src="assets/icons/google.svg" alt="" width="29" height="29"><span>notGoogle · חשבון ניסוי</span></div>
+ <div class="signin-layout">
+  <div class="signin-intro">
+   <h2 id="demoLoginHeading">כניסה לחשבון דמו</h2>
+   <p>ממשק התחברות להדגמת אבטחה בלבד. אין להזין פרטי חשבון אמיתיים.</p>
+   <span class="signin-scope">LOCAL SIMULATION · NO NETWORK REQUEST</span>
+  </div>
+  <form id="demoForm" novalidate autocomplete="off">
+   <section class="demo-step" id="demoStepEmail">
+    <label for="demoEmail">כתובת החשבון הפיקטיבי</label>
+    <input id="demoEmail" type="text" value="demo@example.test" readonly aria-describedby="demoEmailHelp">
+    <p class="demo-help" id="demoEmailHelp">הכתובת מוכנה מראש. החשבון הזה אינו קיים ב־Google.</p>
+    <div class="signin-actions"><button type="button" class="secondary" id="demoCancel">ביטול</button><button type="button" class="primary" id="demoEmailNext">הבא</button></div>
+   </section>
+   <section class="demo-step" id="demoStepPassword" hidden>
+    <button type="button" class="identity-chip" id="demoBackToEmail"><span class="mini-avatar">D</span><span dir="ltr">demo@example.test</span><span>⌄</span></button>
+    <label for="demoPassword">סיסמת הדמה</label>
+    <input id="demoPassword" name="notgoogle_demo_only" type="password" placeholder="הקלד את סיסמת הדוגמה" spellcheck="false" autocorrect="off" autocapitalize="off" autocomplete="off" data-lpignore="true" maxlength="40">
+    <label class="signin-show"><input id="demoShowPassword" type="checkbox"> הצג סיסמה</label>
+    <p class="demo-help">לצורך הניסוי משתמשים רק בערך <code dir="ltr">LabOnly-123!</code>.</p>
+    <button class="demo-fill" type="button" id="demoFillPassword">מלא את סיסמת הדוגמה</button>
+    <p class="demo-error" id="demoLoginError" role="alert" hidden></p>
+    <div class="signin-actions"><button type="button" class="secondary" id="demoPasswordBack">חזרה</button><button type="submit" class="primary">כניסה לדמו</button></div>
+   </section>
+  </form>
+ </div>
+ <div class="signin-footer"><span>notGoogle · Security Lab</span><span>Demo credentials only · No Google authentication</span></div>
+</div></div>
+<section id="lab" class="lab" hidden aria-label="Security reveal"><button class="secondary close" id="closeLab">✕ סגירה</button><h1>THIS WAS NOT GOOGLE.</h1><p class="sub">העיצוב יכול להרגיש מוכר, אבל זהות האתר נקבעת לפי הדומיין בשורת הכתובת, לא לפי הלוגו. זהו ניסוי notGoogle, והפעולות כאן מתועדות מקומית בלבד.</p><div class="lab-grid"><article class="lab-card"><h3>🧭 מסלול החיפוש</h3><ol><li>הקלדה בדף notGoogle</li><li>תיעוד מקומי של אירוע ההפניה</li><li>שליחת טופס GET לכתובת הרשמית של Google</li><li>Google מציג תוצאות בדומיין שלו</li></ol><p class="tiny">אין לנו גישה לתוצאות או לסיסמה של חשבון Google.</p></article><article class="lab-card"><h3>🔐 Credential Demo</h3><p>הדגמת סיסמה פיקטיבית שהוזנה בטופס הדמה. במתקפת פישינג אמיתית, שרת ששולט בטופס עשוי לקבל את הסיסמה.</p><div id="credentialResult">טרם הופעלה הדגמת ההתחברות.</div>
+<div id="demoNetworkTimeline" class="demo-timeline" hidden>
+ <div><span class="timeline-node">1</span><strong>Browser form</strong><p>סיסמת דמה מוקלדת בשדה הניסוי</p></div>
+ <div><span class="timeline-node">2</span><strong>JavaScript</strong><p>קוד הדף קורא את הערך ומשווה אותו לדוגמה המוגדרת מראש</p></div>
+ <div><span class="timeline-node">3</span><strong>Network boundary</strong><p>בניסוי הזה: אין POST, אין שרת ואין העברת סיסמה</p></div>
+ <div><span class="timeline-node">4</span><strong>Security insight</strong><p>אתר שמפעיל טופס שבשליטתו יכול עקרונית לקבל ערכים שהוזנו בו</p></div>
+</div></article><article class="lab-card"><h3>📜 Event Log (local only)</h3><pre id="eventsOutput">[]</pre><button class="secondary" id="export">ייצוא JSON</button> <button class="secondary" id="clear">מחיקת אירועים</button></article><article class="lab-card"><h3>🧩 כיצד בנינו את השחזור?</h3><ol><li>השווינו בין צילומי Google לצילומי notGoogle באותה תצוגה.</li><li>בדקנו מרווחים, צבעים, טיפוגרפיה, אייקונים ומבנה רכיבים.</li><li>חיפשנו ספריות SVG קיימות, בדקנו מקורות וריכזנו אותן בפרויקט.</li><li>השתמשנו ב־DevTools וב־Inspector כדי ללמוד על DOM, CSS, תגובות ללחיצה וניווט.</li><li>תיעדנו שינויים ותוצאות QA; לא הנחנו שכל דמיון חזותי מבטיח זהות או אבטחה.</li></ol><p class="tiny">הסיפור: Look → Inspect → Compare → Rebuild → Test → Reveal.</p></article><article class="lab-card"><h3>🛡️ כיצד מזהים?</h3><ul><li>בדקו את הדומיין המדויק, לא רק את העיצוב.</li><li>HTTPS אינו מוכיח שזה האתר שחשבתם.</li><li>סיסמאות יש להזין רק באתר או באפליקציה שאתם סומכים עליהם.</li><li>התחברות OAuth רשמית לא חושפת את הסיסמה לאתר צד שלישי.</li></ul></article></div></section>
 <div class="toast" id="toast" hidden></div>
 <script>
 (()=>{'use strict';
@@ -124,8 +200,51 @@ $('keyboard').onclick=()=>{$('query').focus();record('search.focus')};
 $('lens').onclick=()=>{record('lens.open',{destination:'https://lens.google/'});window.location.href='https://lens.google/'};
 $('ai').onclick=()=>{record('ai.open',{destination:'https://www.google.com/search?udm=50'});window.location.href='https://www.google.com/search?udm=50'};
 $('mic').onclick=()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast('זיהוי דיבור אינו נתמך בדפדפן הזה');return}const rec=new SR();rec.lang='he-IL';rec.onresult=e=>{$('query').value=e.results[0][0].transcript;record('voice.transcribed',{query:$('query').value})};rec.onerror=()=>toast('לא ניתן לבצע זיהוי דיבור');try{rec.start();toast('מקשיב…')}catch{toast('לא ניתן להפעיל מיקרופון')}};
-$('demoLoginOpen').onclick=()=>{$('profilePanel').hidden=true;$('demoModal').hidden=false;record('demo.open')};$('demoCancel').onclick=()=>$('demoModal').hidden=true;
-$('demoForm').onsubmit=e=>{e.preventDefault();record('demo.credentials_simulated',{identity:'demo@example.test',password:'DEMO ONLY - not stored'});$('credentialResult').textContent='Demo account: demo@example.test | Demo password: MySecret123! | סימולציה מקומית בלבד; לא נשלח מידע לשרת.';$('demoModal').hidden=true;reveal()};
+const DEMO_ONLY_PASSWORD='LabOnly-123!';
+function resetDemo(){
+ $('demoForm').reset();
+ $('demoPassword').value='';
+ $('demoShowPassword').checked=false;
+ $('demoPassword').type='password';
+ $('demoLoginError').hidden=true;
+ $('demoStepEmail').hidden=false;
+ $('demoStepPassword').hidden=true;
+}
+function closeDemo(){ $('demoModal').hidden=true;resetDemo(); }
+function openDemo(){
+ $('profilePanel').hidden=true;resetDemo();$('demoModal').hidden=false;
+ record('demo.login.open',{scenario:'fictional_account',networkRequest:false});
+}
+function demoNext(){
+ $('demoStepEmail').hidden=true;$('demoStepPassword').hidden=false;
+ record('demo.identifier.confirmed',{identity:'demo@example.test',networkRequest:false});
+ $('demoPassword').focus();
+}
+function demoBack(){ $('demoStepPassword').hidden=true;$('demoStepEmail').hidden=false;$('demoPassword').value='';}
+$('demoLoginOpen').onclick=openDemo;
+$('demoCancel').onclick=closeDemo;
+$('demoEmailNext').onclick=demoNext;
+$('demoBackToEmail').onclick=demoBack;
+$('demoPasswordBack').onclick=demoBack;
+$('demoFillPassword').onclick=()=>{ $('demoPassword').value=DEMO_ONLY_PASSWORD;$('demoLoginError').hidden=true;$('demoPassword').focus();};
+$('demoShowPassword').onchange=()=>{$('demoPassword').type=$('demoShowPassword').checked?'text':'password'};
+$('demoModal').addEventListener('click',e=>{if(e.target===$('demoModal'))closeDemo()});
+$('demoForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ if(!$('demoStepEmail').hidden){demoNext();return;}
+ const entered=$('demoPassword').value;
+ $('demoPassword').value='';
+ if(entered!==DEMO_ONLY_PASSWORD){
+  $('demoLoginError').textContent='הניסוי תומך בסיסמת הדמה בלבד. אין להזין כאן סיסמאות אמיתיות.';
+  $('demoLoginError').hidden=false;
+  return;
+ }
+ $('demoLoginError').hidden=true;
+ record('demo.password.demonstrated',{identity:'demo@example.test',demoOnly:true,transport:'none',storedPassword:false});
+ $('credentialResult').innerHTML='<div class="credential-summary"><div class="credential-title">✅ סיסמת דמה נקראה על ידי JavaScript בדפדפן</div><div class="credential-display" dir="ltr"><span>demo@example.test</span><strong>LabOnly-123!</strong></div><div class="credential-caution">הערך הושווה מקומית בלבד. לא נשלח POST, לא נשמרה סיסמה ולא נוצר חשבון אמיתי.</div></div>';
+ $('demoNetworkTimeline').hidden=false;
+ closeDemo();reveal();
+});
 function reveal(){$('lab').hidden=false;render();document.body.style.overflow='hidden';record('lab.reveal')};function close(){$('lab').hidden=true;document.body.style.overflow=''}$('closeLab').onclick=close;$('revealFromProfile').onclick=reveal;
 $('export').onclick=()=>{const blob=new Blob([JSON.stringify(events,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='notgoogle-events.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};$('clear').onclick=()=>{events=[];try{localStorage.removeItem(KEY)}catch{}render()};
 let escapes=[];let seq=[];const konami=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('lab').hidden){close();return}escapes.push(Date.now());escapes=escapes.filter(t=>Date.now()-t<3000);if(escapes.length>=5){escapes=[];reveal()}}seq.push(e.key.length===1?e.key.toLowerCase():e.key);seq=seq.slice(-10);if(seq.join('|')===konami.join('|')){seq=[];reveal()}});
