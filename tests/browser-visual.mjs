@@ -60,8 +60,9 @@ try{
   await page.locator('[data-lab-tab="visual"]').click();
   assert.equal(await page.locator('#labVisual').isVisible(),true);
   const historicImage=page.locator('.lab-reference-image img');
-  assert.equal(await historicImage.isVisible(),true,'Built-in historical image visible in Visual tab');
   await historicImage.scrollIntoViewIfNeeded();
+  await historicImage.evaluate(async img=>{if(!img.complete)await img.decode().catch(()=>{});});
+  assert.equal(await historicImage.isVisible(),true,'Built-in historical image visible in Visual tab');
   const pic=await historicImage.evaluate(img=>({loaded:img.complete&&img.naturalWidth>0,width:img.naturalWidth,height:img.naturalHeight}));
   assert.equal(pic.loaded,true,'Historical comparison asset must decode on '+v.label);
 
