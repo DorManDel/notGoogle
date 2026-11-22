@@ -265,6 +265,15 @@ body,.country,.footer,.foot-links{background:#22242a}
 @media(max-width:650px){#appsPanel{height:min(560px,calc(100dvh - 67px));max-height:calc(100dvh - 67px)}}
 @media(prefers-reduced-motion:reduce){#appsPanel{scroll-behavior:auto}.ai-pill:hover{animation:none}.ai-pill::after,.tool[data-tooltip]::after{transition:none}}
 
+
+/* Phone-specific layout integrity: no document-level sideways panning */
+html{max-width:100%;overflow-x:clip}
+body{max-width:100%;overflow-x:clip}
+@media(max-width:480px){
+ .lab-tabbar{justify-content:space-between;gap:3px}
+ .lab-tab{font-size:12px;gap:5px;padding:9px 7px;flex:1 1 0;justify-content:center}
+ .lab-tab span{font-size:9px}
+}
 </style>
 </head>
 <body>
@@ -317,9 +326,9 @@ body,.country,.footer,.foot-links{background:#22242a}
   </header>
   <nav class="lab-tabbar" role="tablist" aria-label="חלקי ניתוח האבטחה">
    <button type="button" role="tab" class="lab-tab is-active" data-lab-tab="overview" aria-selected="true" aria-controls="labOverview">סקירה <span>01</span></button>
-   <button type="button" role="tab" class="lab-tab" data-lab-tab="events" aria-selected="false" aria-controls="labEvents">Event Log <span>02</span></button>
-   <button type="button" role="tab" class="lab-tab" data-lab-tab="visual" aria-selected="false" aria-controls="labVisual">השוואה חזותית <span>03</span></button>
-   <button type="button" role="tab" class="lab-tab" data-lab-tab="defense" aria-selected="false" aria-controls="labDefense">מה למדנו? <span>04</span></button>
+   <button type="button" role="tab" class="lab-tab" data-lab-tab="events" aria-selected="false" aria-controls="labEvents">אירועים <span>02</span></button>
+   <button type="button" role="tab" class="lab-tab" data-lab-tab="visual" aria-selected="false" aria-controls="labVisual">השוואה <span>03</span></button>
+   <button type="button" role="tab" class="lab-tab" data-lab-tab="defense" aria-selected="false" aria-controls="labDefense">הגנה <span>04</span></button>
   </nav>
   <div class="lab-workspace">
    <div id="labOverview" class="lab-view" role="tabpanel" aria-label="סקירה">
