@@ -144,7 +144,7 @@ body,.country,.footer,.foot-links{background:#22242a}
 .ai-pill{position:relative;isolation:isolate;--ai-x:50%;--ai-y:50%;--ai-angle:0deg;--ai-glow:0;border:2px solid transparent;padding:7px 10px;background:linear-gradient(#454750,#454750) padding-box,conic-gradient(from var(--ai-angle),#4285f4,#9b83e8,#34a853,#fbbc05,#ea4335,#4285f4) border-box;transition:box-shadow .2s ease}
 .ai-pill::after{content:"";position:absolute;inset:-7px;border-radius:999px;pointer-events:none;z-index:-1;background:radial-gradient(circle at var(--ai-x) var(--ai-y),rgba(66,133,244,.52),rgba(65,185,149,.15) 44%,transparent 72%);filter:blur(8px);opacity:var(--ai-glow);transition:opacity .18s ease}
 .ai-pill:hover,.ai-pill:focus-visible{--ai-glow:1;box-shadow:0 1px 8px rgba(118,157,243,.24)}
-.ai-pill:hover{animation:ai-spectrum 4s linear infinite}
+.ai-pill:hover{animation:none}
 @property --ai-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
 @keyframes ai-spectrum{to{--ai-angle:360deg}}
 @media(max-width:700px){.lab{padding:70px 16px 24px}.lab-grid{grid-template-columns:minmax(0,1fr)}.compare-card{grid-column:auto}.compare-images{grid-template-columns:1fr}.delta-list{grid-template-columns:1fr}.event-scroll{height:180px}.compare-image-shell{max-height:43dvh}}
@@ -258,10 +258,33 @@ body,.country,.footer,.foot-links{background:#22242a}
 .tool:hover,.tool:focus-visible{background:transparent!important;filter:brightness(1.10)}
 .tool[data-tooltip]::after{content:attr(data-tooltip);position:absolute;bottom:calc(100% + 8px);left:50%;width:max-content;max-width:180px;white-space:nowrap;background:#eceef1;color:#202124;padding:6px 9px;border-radius:4px;font:12px/1.2 Arial,sans-serif;direction:rtl;opacity:0;transform:translate(-50%,4px);transition:opacity .12s ease,transform .12s ease;pointer-events:none;z-index:20;box-shadow:0 2px 10px #0004}
 .tool[data-tooltip]:hover::after,.tool[data-tooltip]:focus-visible::after{opacity:1;transform:translate(-50%,0)}
-.ai-pill{overflow:hidden;position:relative;border-width:1px;border-color:transparent;--ai-glow:0;background:linear-gradient(#454750,#454750) padding-box,conic-gradient(from var(--ai-angle),#4285f4,#966fe0,#34a853,#fbbc05,#e56b5d,#4285f4) border-box;box-shadow:none!important;contain:paint}
-.ai-pill::after{inset:0;border-radius:inherit;filter:none;z-index:0;mix-blend-mode:screen;background:radial-gradient(circle at var(--ai-x) var(--ai-y),rgba(95,158,255,.26),rgba(57,167,121,.13) 34%,transparent 72%);opacity:var(--ai-glow);transition:opacity .15s ease}
-.ai-pill:hover,.ai-pill:focus-visible{--ai-glow:1}
-.ai-pill:hover{animation:ai-spectrum 6s linear infinite}
+/* Cursor-revealed prism: neutral until hover, local light only around the pointer. */
+.ai-pill{
+  position:relative;isolation:isolate;overflow:hidden;contain:paint;
+  --ai-x:50%;--ai-y:50%;--ai-glow:0;--ai-edge-alpha:0;
+  border:1px solid transparent;box-shadow:none!important;
+  background:
+    linear-gradient(#454750,#454750) padding-box,
+    radial-gradient(ellipse 28px 25px at var(--ai-x) var(--ai-y),
+      rgba(66,133,244,var(--ai-edge-alpha)) 0%,
+      rgba(165,123,230,var(--ai-edge-alpha)) 28%,
+      rgba(52,168,83,var(--ai-edge-alpha)) 54%,
+      rgba(251,188,5,var(--ai-edge-alpha)) 76%,
+      transparent 100%) border-box;
+  transition:background-color .16s ease;
+}
+.ai-pill::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;
+  z-index:0;pointer-events:none;filter:none;mix-blend-mode:screen;
+  background:radial-gradient(ellipse 37px 28px at var(--ai-x) var(--ai-y),
+    rgba(111,160,255,.31),rgba(86,161,183,.18) 35%,
+    rgba(63,169,112,.08) 58%,transparent 82%);
+  opacity:var(--ai-glow);transition:opacity .18s ease;
+}
+.ai-pill:hover,.ai-pill:focus-visible{--ai-glow:1;--ai-edge-alpha:1}
+.ai-pill:hover{animation:none!important}
+.ai-pill:not(:hover):not(:focus-visible){--ai-glow:0;--ai-edge-alpha:0}
+
 @media(max-width:650px){#appsPanel{height:min(560px,calc(100dvh - 67px));max-height:calc(100dvh - 67px)}}
 @media(prefers-reduced-motion:reduce){#appsPanel{scroll-behavior:auto}.ai-pill:hover{animation:none}.ai-pill::after,.tool[data-tooltip]::after{transition:none}}
 
@@ -274,6 +297,51 @@ body{max-width:100%;overflow-x:clip}
  .lab-tab{font-size:12px;gap:5px;padding:9px 7px;flex:1 1 0;justify-content:center}
  .lab-tab span{font-size:9px}
 }
+
+/* One-click built-in historical screenshot comparison in Reveal */
+.lab-reference{margin:12px 0 16px;background:#151d2b;border:1px solid #35455d;border-radius:14px;overflow:hidden}
+.lab-reference-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;flex-wrap:wrap}
+.lab-reference-head>div{display:flex;flex-direction:column;gap:4px}
+.lab-reference-head strong{font-size:14px;color:#e7effd}
+.lab-reference-head span,.lab-reference figcaption{font-size:11px;color:#a7b7ce}
+.lab-reference-head>a{border-radius:8px;padding:8px 12px;border:1px solid #506280;white-space:nowrap;font-size:12px}
+.lab-reference-head>a:hover{background:#293a54}
+.lab-reference-image{display:block;margin:0 14px;border:1px solid #43516b;border-radius:9px;overflow:hidden;background:#171b23;line-height:0}
+.lab-reference-image img{display:block;width:100%;height:auto;max-height:31vh;object-fit:contain;object-position:center}
+.lab-reference figcaption{margin:0;padding:9px 16px 13px;line-height:1.5}
+@media(max-width:700px){.lab-reference-head{padding:10px 12px}.lab-reference-image{margin:0 10px}.lab-reference-image img{max-height:29vh}}
+
+
+/* AI prism fidelity — the four-color cluster travels as one under the pointer.
+   Nothing colored is painted at rest; only the local neighborhood is revealed on hover. */
+.ai-pill{
+  --ai-x:50%;--ai-y:50%;--ai-glow:0;
+  position:relative;isolation:isolate;overflow:hidden;contain:paint;
+  background:#454750!important;border:1px solid #585d65;
+  box-shadow:none!important;animation:none!important;
+}
+.ai-pill::before{
+  content:"";position:absolute;inset:0;z-index:0;border-radius:inherit;
+  pointer-events:none;
+  background:
+    radial-gradient(circle 22px at calc(var(--ai-x) - 20px) calc(var(--ai-y) - 2px),rgba(66,133,244,.83),transparent 92%),
+    radial-gradient(circle 22px at calc(var(--ai-x) - 5px) calc(var(--ai-y) + 7px),rgba(52,168,83,.78),transparent 91%),
+    radial-gradient(circle 22px at calc(var(--ai-x) + 11px) calc(var(--ai-y) + 7px),rgba(251,188,5,.83),transparent 92%),
+    radial-gradient(circle 20px at calc(var(--ai-x) + 24px) calc(var(--ai-y) - 4px),rgba(245,116,43,.76),transparent 93%);
+  -webkit-mask-image:radial-gradient(ellipse 60px 31px at var(--ai-x) var(--ai-y),#000 15%,rgba(0,0,0,.94) 45%,transparent 98%);
+  mask-image:radial-gradient(ellipse 60px 31px at var(--ai-x) var(--ai-y),#000 15%,rgba(0,0,0,.94) 45%,transparent 98%);
+  opacity:var(--ai-glow);transition:opacity .18s ease-out;
+}
+.ai-pill::after{
+  content:"";position:absolute;inset:0;z-index:0;border-radius:inherit;
+  pointer-events:none;filter:none;mix-blend-mode:screen;
+  background:radial-gradient(ellipse 43px 23px at var(--ai-x) var(--ai-y),rgba(129,178,253,.16),transparent 90%);
+  opacity:var(--ai-glow);transition:opacity .18s ease-out;
+}
+.ai-pill .ai-pill-text{position:relative;z-index:1;white-space:nowrap}
+.ai-pill:hover,.ai-pill:focus-visible,.ai-pill:active{--ai-glow:1;animation:none!important}
+.ai-pill:not(:hover):not(:focus-visible):not(:active){--ai-glow:0}
+@media(prefers-reduced-motion:reduce){.ai-pill::before,.ai-pill::after{transition:none}}
 </style>
 </head>
 <body>
@@ -281,7 +349,7 @@ body{max-width:100%;overflow-x:clip}
 <div class="brand-note" aria-label="Educational replica">notGoogle · demo</div>
 <aside id="appsPanel" class="popover" hidden><div class="apps-inner"><div class="apps-title">המועדפים</div><div class="apps-grid" id="appsGrid"></div></div><div class="apps-grid apps-extra" id="appsMore" aria-label="שירותים נוספים"></div></aside>
 <aside id="profilePanel" class="popover" hidden><div class="profile-card"><div class="avatar">D</div><h3>חשבון הדגמה</h3><div class="tiny">אין חיבור לחשבון Google אמיתי</div><div class="profile-actions"><button id="demoLoginOpen">כניסה לחשבון דמה</button><a href="https://accounts.google.com/" target="_blank" rel="noopener noreferrer">מעבר להתחברות הרשמית של Google ↗</a><button id="revealFromProfile">הצג ניתוח אבטחה</button></div></div></aside>
-<main class="main"><div class="logo" aria-label="Google-inspired search demo">Google</div><form class="search-form" id="searchForm" action="https://www.google.com/search" method="GET"><div class="search-shell"><button class="search-add" id="addTool" type="button" aria-label="פעולות חיפוש נוספות" aria-expanded="false" aria-controls="quickActions" title="פעולות חיפוש נוספות">+</button><input name="q" id="query" type="search" aria-label="חיפוש" autocomplete="off"><button class="tool" type="button" id="keyboard" title="כלי הזנה" aria-label="כלי הזנה" data-tooltip="כלי הזנה"><img class="keyboard-icon" src="assets/icons/keyboard.svg" alt="" aria-hidden="true"></button><button class="tool" type="button" id="mic" title="חיפוש קולי" aria-label="חיפוש קולי" data-tooltip="חיפוש קולי"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4m-4 0h8"/></svg></button><button class="tool" type="button" id="lens" title="חיפוש לפי תמונה" aria-label="חיפוש לפי תמונה" data-tooltip="חיפוש לפי תמונה"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9V6a2 2 0 0 1 2-2h3m6 0h3a2 2 0 0 1 2 2v3m0 6v3a2 2 0 0 1-2 2h-3m-6 0H6a2 2 0 0 1-2-2v-3"/><circle cx="12" cy="12" r="3.5"/></svg></button><button class="ai-pill" type="button" id="ai" aria-label="מצב AI" title="מצב AI" data-tooltip="מצב AI">✦ מצב AI</button></div><div class="quick-actions" id="quickActions" hidden><button type="button" id="quickImage">חיפוש לפי תמונה</button><button type="button" id="quickVoice">חיפוש קולי</button><button type="button" id="quickType">כלי הזנה</button></div><div class="input-panel" id="inputToolsPanel" hidden aria-label="כלי הזנה"><div class="input-panel-header"><strong>כלי הזנה</strong><button type="button" id="closeInputTools" aria-label="סגירת כלי ההזנה" title="סגירה">✕</button></div><div class="input-lang-row"><button type="button" id="inputHebrew" aria-pressed="true">עברית</button><button type="button" id="inputEnglish" aria-pressed="false">English</button></div><div class="input-keys" id="inputKeys"></div><p>המקלדת הזו פועלת רק בשדה החיפוש של הדמו.</p></div><div class="actions"><button class="action" type="submit">חיפוש ב-Google</button><button class="action" type="button" id="lucky">יותר מזל משכל</button></div></form><div class="langs">אפשר לחפש גם ב: <a href="https://www.google.com/?hl=en">English</a> <a href="https://www.google.com/?hl=ar">العربية</a></div></main>
+<main class="main"><div class="logo" aria-label="Google-inspired search demo">Google</div><form class="search-form" id="searchForm" action="https://www.google.com/search" method="GET"><div class="search-shell"><button class="search-add" id="addTool" type="button" aria-label="פעולות חיפוש נוספות" aria-expanded="false" aria-controls="quickActions" title="פעולות חיפוש נוספות">+</button><input name="q" id="query" type="search" aria-label="חיפוש" autocomplete="off"><button class="tool" type="button" id="keyboard" title="כלי הזנה" aria-label="כלי הזנה" data-tooltip="כלי הזנה"><img class="keyboard-icon" src="assets/icons/keyboard.svg" alt="" aria-hidden="true"></button><button class="tool" type="button" id="mic" title="חיפוש קולי" aria-label="חיפוש קולי" data-tooltip="חיפוש קולי"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4m-4 0h8"/></svg></button><button class="tool" type="button" id="lens" title="חיפוש לפי תמונה" aria-label="חיפוש לפי תמונה" data-tooltip="חיפוש לפי תמונה"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9V6a2 2 0 0 1 2-2h3m6 0h3a2 2 0 0 1 2 2v3m0 6v3a2 2 0 0 1-2 2h-3m-6 0H6a2 2 0 0 1-2-2v-3"/><circle cx="12" cy="12" r="3.5"/></svg></button><button class="ai-pill" type="button" id="ai" aria-label="מצב AI" title="מצב AI" data-tooltip="מצב AI"><span class="ai-pill-text">✦ מצב AI</span></button></div><div class="quick-actions" id="quickActions" hidden><button type="button" id="quickImage">חיפוש לפי תמונה</button><button type="button" id="quickVoice">חיפוש קולי</button><button type="button" id="quickType">כלי הזנה</button></div><div class="input-panel" id="inputToolsPanel" hidden aria-label="כלי הזנה"><div class="input-panel-header"><strong>כלי הזנה</strong><button type="button" id="closeInputTools" aria-label="סגירת כלי ההזנה" title="סגירה">✕</button></div><div class="input-lang-row"><button type="button" id="inputHebrew" aria-pressed="true">עברית</button><button type="button" id="inputEnglish" aria-pressed="false">English</button></div><div class="input-keys" id="inputKeys"></div><p>המקלדת הזו פועלת רק בשדה החיפוש של הדמו.</p></div><div class="actions"><button class="action" type="submit">חיפוש ב-Google</button><button class="action" type="button" id="lucky">יותר מזל משכל</button></div></form><div class="langs">אפשר לחפש גם ב: <a href="https://www.google.com/?hl=en">English</a> <a href="https://www.google.com/?hl=ar">العربية</a></div></main>
 <footer class="footer"><div class="country">ישראל</div><div class="foot-links"><div><a href="https://about.google/">מידע כללי</a><a href="https://ads.google.com/">פרסום</a><a href="https://www.google.com/services/">עסקים</a><a href="https://www.google.com/search/howsearchworks/">כיצד פועל החיפוש</a></div><div><a href="https://policies.google.com/privacy">פרטיות</a><a href="https://policies.google.com/terms">תנאים</a><a href="https://www.google.com/preferences">הגדרות</a></div><a class="climate-callout" href="https://blog.google/company-news/outreach-and-initiatives/sustainability/our-third-decade-climate-action-realizing-carbon-free-future/" target="_blank" rel="noopener noreferrer"><span class="climate-leaf" aria-hidden="true">🍃</span><span>עשור שלישי לפעילות שלנו בתחום האקלים: <u>למידע נוסף</u></span></a></div></footer>
 <button id="touchReveal" class="touch-reveal" aria-label="פתיחת מצב הדגמה בלחיצות חוזרות" title="Tap 5 times to reveal"></button>
 <div class="modal" id="demoModal" hidden role="dialog" aria-modal="true" aria-labelledby="demoLoginHeading">
@@ -374,7 +442,12 @@ body{max-width:100%;overflow-x:clip}
    </div>
    <div id="labVisual" class="lab-view" role="tabpanel" aria-label="השוואת עיצוב" hidden>
     <div class="lab-view-intro"><div><h2>עד כמה השחזור קרוב?</h2><p>אלה פערי התכנון שנותרו. אפשר להציג שני צילומי מסך זה לצד זה, באותה רזולוציה ועם אותו Zoom.</p></div><button type="button" class="lab-primary" id="openComparison">פתח השוואת צילומים ↗</button></div>
-    <div class="visual-issues">
+    <figure class="lab-reference">
+ <div class="lab-reference-head"><div><strong>Google מול notGoogle — צילום השוואה</strong><span>תיעוד מסבב קודם · לא צילום של הגרסה הנוכחית</span></div><a href="assets/comparisons/desktop-before-after.webp" target="_blank" rel="noopener noreferrer" aria-label="הגדל את צילום ההשוואה בחלון חדש">הגדל <span aria-hidden="true">↗</span></a></div>
+ <a class="lab-reference-image" href="assets/comparisons/desktop-before-after.webp" target="_blank" rel="noopener noreferrer" aria-label="פתח את צילום ההשוואה בגודל מלא"><img src="assets/comparisons/desktop-before-after.webp" alt="צילום היסטורי של notGoogle בצד שמאל מול Google בצד ימין, באותו מסך מחשב" loading="lazy" decoding="async"></a>
+ <figcaption>משמאל: notGoogle בתצוגה ישנה. מימין: Google בצילום הייחוס. ההשוואה ממחישה דמיון והבדלים חזותיים; היא אינה בדיקת Pixel Diff אוטומטית.</figcaption>
+ </figure>
+ <div class="visual-issues">
       <article class="lab-card"><span class="issue-no">01 / TYPOGRAPHY</span><h3>Wordmark</h3><p>צורת האותיות ומרווחיהן עדיין שונים מן הייחוס.</p></article>
       <article class="lab-card"><span class="issue-no">02 / SEARCH</span><h3>Search Controls</h3><p>כפתור הפעולות ואנימציית AI Mode הם מימוש עצמאי.</p></article>
       <article class="lab-card"><span class="issue-no">03 / APPS</span><h3>App Launcher</h3><p>הפריסה והאייקונים דומים, אך אינם זהים בכל גודל מסך.</p></article>
@@ -489,11 +562,13 @@ $('mic').onclick=()=>{const SR=window.SpeechRecognition||window.webkitSpeechReco
 
 /* V5.4: pointer-aware gradient and local comparison viewer */
 const aiButton=$('ai');
-aiButton.addEventListener('pointermove',e=>{
+const trackAiPrism=e=>{
  const rect=aiButton.getBoundingClientRect();
+ if(!rect.width||!rect.height)return;
  aiButton.style.setProperty('--ai-x',((e.clientX-rect.left)/rect.width*100).toFixed(1)+'%');
  aiButton.style.setProperty('--ai-y',((e.clientY-rect.top)/rect.height*100).toFixed(1)+'%');
-});
+};
+for(const name of ['pointerenter','pointermove','pointerdown'])aiButton.addEventListener(name,trackAiPrism);
 aiButton.addEventListener('pointerleave',()=>{
  aiButton.style.setProperty('--ai-x','50%');
  aiButton.style.setProperty('--ai-y','50%');
