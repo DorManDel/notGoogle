@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gradient Hover — Visual FX Lab</title>
+<style>
+@property --angle{syntax:"<angle>";inherits:false;initial-value:0deg}
+:root{color-scheme:dark;font:16px system-ui,Arial,sans-serif;background:#20232a;color:#f1f3f8}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px}
+main{width:min(740px,100%);padding:clamp(22px,4vw,38px);border:1px solid #393e4a;border-radius:22px;background:#242831}
+h1{font-size:clamp(22px,3vw,32px);margin:0 0 12px}p{color:#b6bdcb;line-height:1.65}
+.stage{min-height:180px;display:grid;place-items:center;position:relative;background:#1b1e26;border:1px solid #363b4b;border-radius:20px;margin:20px 0 24px}
+.gradient-chip{--angle:0deg;--mx:50%;--my:50%;--glow:13px;--speed:2.6s;--edge:2px;position:relative;display:flex;align-items:center;gap:10px;isolation:isolate;color:#eff1ff;font:500 16px system-ui;cursor:pointer;background:linear-gradient(#454953,#454953) padding-box,conic-gradient(from var(--angle),#4285f4,#8aa9ff,#34a853,#fbbc05,#ea4335,#4285f4) border-box;border:var(--edge) solid transparent;padding:15px 28px;border-radius:999px;transition:box-shadow .2s ease,filter .2s ease;animation:hue-orbit var(--speed) linear infinite paused}
+.gradient-chip::after{content:"";position:absolute;inset:-8px;border-radius:inherit;z-index:-1;background:radial-gradient(circle at var(--mx) var(--my),rgba(66,133,244,.3),rgba(52,168,83,.08) 45%,transparent 72%);filter:blur(var(--glow));opacity:0;transition:opacity .2s}
+.gradient-chip:is(:hover,:focus-visible,.on){animation-play-state:running;box-shadow:0 0 var(--glow) rgba(66,133,244,.3)}
+.gradient-chip:is(:hover,:focus-visible,.on)::after{opacity:1}
+.gradient-chip:focus-visible{outline:2px solid #d5e6ff;outline-offset:5px}
+@keyframes hue-orbit{to{--angle:360deg}}
+.controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+label{display:flex;flex-direction:column;gap:8px;color:#cbd4e4;font-size:14px}
+input[type="range"]{width:100%;accent-color:#8ab4f8}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:18px}
+.row label{flex-direction:row;align-items:center}
+small{color:#9ea7b9}code{color:#d2e4ff}
+@media(max-width:610px){.controls{grid-template-columns:1fr}.stage{min-height:155px}}
+@media(prefers-reduced-motion:reduce){.gradient-chip{animation:none!important;transition:none}.gradient-chip::after{transition:none}}
+</style></head>
+<body><main>
+<h1>Gradient Hover Lab <small>· notGoogle research</small></h1>
+<p>מעבדה עצמאית להסבר אפקט צבע סביב כפתור, לא העתק של קוד Google. העבר עכבר מעל הכפתור, תן לו Focus עם Tab או הקש עליו בטלפון.</p>
+<section class="stage"><button class="gradient-chip" id="sample" type="button"><span aria-hidden="true">✦</span> מצב AI — הדגמה</button></section>
+<div class="controls">
+<label>Blur <output id="blurV">13px</output><input id="blur" type="range" min="0" max="26" value="13"></label>
+<label>Speed <output id="speedV">2.6s</output><input id="speed" type="range" min="1" max="9" value="2.6" step=".2"></label>
+<label>Border <output id="edgeV">2px</output><input id="edge" type="range" min="1" max="5" value="2"></label>
+</div>
+<div class="row"><label><input id="pin" type="checkbox"> הצג אפקט גם בלי Hover</label><label><input id="follow" type="checkbox" checked> קישור מיקום האור לעכבר</label></div>
+<p><small>עיקרון: <code>conic-gradient</code> יוצר טבעת צבעונית; <code>--angle</code> משתנה בזמן; <code>radial-gradient</code> יוצר הילה; <code>pointermove</code> משנה את מרכז ההילה. תצוגה זו שומרת על <code>prefers-reduced-motion</code>.</small></p>
+</main><script>
+const chip=document.getElementById('sample');
+for (const [id,css,unit] of [['blur','--glow','px'],['speed','--speed','s'],['edge','--edge','px']]) {
+ const input=document.getElementById(id),output=document.getElementById(id+'V');
+ input.addEventListener('input',()=>{chip.style.setProperty(css,input.value+unit);output.value=input.value+unit});
+}
+document.getElementById('pin').addEventListener('change',e=>chip.classList.toggle('on',e.target.checked));
+chip.addEventListener('pointermove',e=>{
+ if(!document.getElementById('follow').checked)return;
+ const r=chip.getBoundingClientRect();
+ chip.style.setProperty('--mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');
+ chip.style.setProperty('--my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');
+});
+chip.addEventListener('pointerleave',()=>{chip.style.setProperty('--mx','50%');chip.style.setProperty('--my','50%')});
+</script></body></html>
