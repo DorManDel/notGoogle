@@ -27,6 +27,25 @@ try{
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto(url,{waitUntil:'networkidle'});
   await page.screenshot({path:'artifacts/browser-qa/'+v.label+'-home.png'});
+  if(v.w>650){
+   const ai=page.locator('#ai');
+   const aiDefault=await ai.evaluate(el=>({opacity:getComputedStyle(el,'::before').opacity,shape:getComputedStyle(el,'::before').backgroundImage}));
+   assert.equal(aiDefault.opacity,'0','AI colors must be hidden at rest on '+v.label);
+   assert.match(aiDefault.shape,/radial-gradient/,'Rainbow cluster CSS should be present');
+   const box=await ai.boundingBox();assert.ok(box,'AI pill must be visible at '+v.label);
+   await page.mouse.move(box.x+box.width*.22,box.y+box.height/2);
+   const left=await ai.evaluate(el=>({opacity:getComputedStyle(el,'::before').opacity,x:el.style.getPropertyValue('--ai-x')}));
+   await page.screenshot({path:'artifacts/browser-qa/'+v.label+'-ai-left.png'});
+   await page.mouse.move(box.x+box.width*.78,box.y+box.height/2);
+   const right=await ai.evaluate(el=>({opacity:getComputedStyle(el,'::before').opacity,x:el.style.getPropertyValue('--ai-x')}));
+   await page.screenshot({path:'artifacts/browser-qa/'+v.label+'-ai-right.png'});
+   assert.ok(parseFloat(left.x)<35 && parseFloat(right.x)>65,'AI color cluster must follow pointer on '+v.label);
+   await page.mouse.move(0,box.y+box.height+80);
+   await page.waitForTimeout(280);
+   const off=await ai.evaluate(el=>getComputedStyle(el,'::before').opacity);
+   assert.equal(off,'0','AI cluster must vanish on pointer exit at '+v.label);
+  }
+
   await page.locator('#appsToggle').click();
   assert.equal(await page.locator('#appsPanel').isVisible(),true);
   const appStats=await page.locator('#appsPanel').evaluate(el=>({client:el.clientHeight,scroll:el.scrollHeight}));
@@ -40,6 +59,12 @@ try{
   assert.equal(await page.locator('#labEvents').isVisible(),true);
   await page.locator('[data-lab-tab="visual"]').click();
   assert.equal(await page.locator('#labVisual').isVisible(),true);
+  const historicImage=page.locator('.lab-reference-image img');
+  assert.equal(await historicImage.isVisible(),true,'Built-in historical image visible in Visual tab');
+  await historicImage.scrollIntoViewIfNeeded();
+  const pic=await historicImage.evaluate(img=>({loaded:img.complete&&img.naturalWidth>0,width:img.naturalWidth,height:img.naturalHeight}));
+  assert.equal(pic.loaded,true,'Historical comparison asset must decode on '+v.label);
+
   await page.locator('#openComparison').click();
   assert.equal(await page.locator('#compareModal').isVisible(),true);
   await page.locator('#closeComparison').click();
