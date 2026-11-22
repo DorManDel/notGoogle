@@ -181,6 +181,70 @@ body,.country,.footer,.foot-links{background:#22242a}
 .input-panel,.quick-actions{top:calc(var(--search-surface-height,56px) + 8px)}
 @media(min-width:601px) and (max-width:1099px){.search-form{--search-surface-height:52px}}
 @media(max-width:600px){.search-form{--search-surface-height:52px}.foot-links{grid-template-columns:1fr;padding:12px 14px;gap:10px}.foot-links>div:first-child{grid-column:1;grid-row:2;justify-content:center}.foot-links>div:nth-child(2){grid-column:1;grid-row:3;justify-content:center}.climate-callout{grid-column:1;grid-row:1}}
+
+/* V5.5 — constrained one-screen Reveal workspace */
+.lab{position:fixed;inset:0;z-index:50;overflow:hidden;padding:clamp(12px,2.5vw,26px);background:#0d111a;color:#e9eef8}
+.lab[hidden],.lab-view[hidden]{display:none!important}
+.lab-shell{width:min(1340px,100%);height:100%;min-height:0;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.lab-masthead{flex:0 0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:6px 4px 7px;border-bottom:1px solid #30394b}
+.lab-heading{min-width:0}
+.lab-kicker{font:700 10px/1.4 Arial,sans-serif;letter-spacing:.11em;color:#a2b7d5;direction:ltr;display:flex;align-items:center;gap:7px;justify-content:flex-end}
+.lab-live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#80bbce;box-shadow:0 0 0 3px #80bbce14}
+.lab-masthead h1{font:800 clamp(28px,4.3vw,48px)/1.08 Arial,sans-serif;letter-spacing:-.04em;color:#f2c764;margin:8px 0 4px;direction:ltr;text-align:right}
+.lab-stop{color:#f2c764}
+.lab-masthead p{font-size:14px;margin:0;color:#c1cddd;line-height:1.4;direction:ltr;text-align:right}
+.lab .close-icon{position:static;flex:0 0 38px;width:38px;height:38px;background:#1a2333;border:1px solid #43516c;border-radius:11px;font-size:21px;display:grid;place-items:center;color:#e0e9f5;z-index:1}
+.lab .close-icon:hover{background:#2a354a}
+.lab-tabbar{flex:0 0 auto;display:flex;gap:5px;align-items:center;border-bottom:1px solid #30394b;overflow-x:auto;scrollbar-width:thin;padding-bottom:7px}
+.lab-tab{display:flex;align-items:center;gap:9px;white-space:nowrap;flex:0 0 auto;padding:11px 15px;border:1px solid transparent;border-radius:10px;background:transparent;color:#afbfd3;font-weight:600;font-size:14px}
+.lab-tab:hover{background:#20293b}.lab-tab.is-active{background:#27334b;color:#f4f7ff;border-color:#475b79}
+.lab-tab span{font:700 10px monospace;color:#93a7c2}
+.lab-workspace{flex:1 1 auto;min-height:0;position:relative;overflow:hidden}
+.lab-view{height:100%;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:4px 3px 8px}
+.lab-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:13px}
+.lab-stats>div{padding:14px 17px;border:1px solid #364359;border-radius:12px;background:#171f2e;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.lab-stats span{font-size:12px;color:#a6bad1}.lab-stats strong{font:700 16px/1.2 Arial,sans-serif;color:#e9f1fb;direction:ltr;white-space:nowrap}
+.lab-overview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:13px}
+.lab-overview-grid .lab-card{min-height:0;padding:19px}
+.lab-overview-grid .lab-card h2{font-size:17px;line-height:1.35;margin:0 0 13px}
+.lab-card{background:#1b2434;border:1px solid #394860;border-radius:15px;color:#e9eff9}
+.lab-card p{font-size:13px;line-height:1.6;margin:0 0 12px;color:#ccd6e5}
+.lab-steps{padding-inline-start:22px;font-size:13px;line-height:1.55;margin:0 0 12px}
+.lab-steps li{margin-bottom:10px}
+.lab-insights{list-style:none;padding:0;margin:0 0 12px;display:grid;gap:11px}
+.lab-insights li{display:grid;gap:4px;border-bottom:1px solid #344158;padding-bottom:10px}
+.lab-insights li:last-child{border-bottom:0}
+.lab-insights strong{font-size:13px;color:#bad2ff;direction:ltr}
+.lab-insights span{font-size:12px;line-height:1.5;color:#c3d0e2}
+.lab-credential{font-size:13px;line-height:1.5}
+.lab-credential .credential-summary{padding:10px}
+.lab-credential .credential-display{padding:8px}
+.lab-credential .credential-display strong{font-size:17px}
+.lab-credential .credential-caution{font-size:11px}
+.lab-credential + .demo-timeline{margin-top:12px;max-height:170px;overflow:auto}
+.lab-credential + .demo-timeline>div{padding-bottom:7px}
+.lab-credential + .demo-timeline p{margin:2px 0;font-size:11px}
+.lab-view-intro{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin:3px 2px 15px}
+.lab-view-intro h2{margin:0 0 6px;font-size:23px}
+.lab-view-intro p{font-size:13px;color:#aebdd1;line-height:1.5;margin:0}
+.lab-pill{font-size:12px;color:#cfe1ff;border:1px solid #425775;padding:9px 12px;border-radius:999px;white-space:nowrap}
+.lab-primary{background:#a9c9ff;color:#112238;border:0;border-radius:10px;padding:12px 18px;white-space:nowrap;font-weight:700;font-size:13px}
+.lab-primary:hover{background:#c1d8ff}
+.lab-view .event-card{max-width:100%;padding:17px}
+.lab-view .event-scroll{height:clamp(220px,48vh,440px);max-height:56vh;background:#101827}
+.lab-view .event-scroll pre{font-size:12px}
+.visual-issues{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}
+.visual-issues .lab-card{padding:17px}.visual-issues .lab-card h3{margin:10px 0 8px;font-size:16px}.visual-issues .lab-card p{font-size:12px}
+.issue-no{font:700 10px/1.4 monospace;color:#92baff}
+.lab-lesson-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.lab-lesson-grid .lab-card{padding:21px}
+.lab-lesson-grid .lab-card h3{font-size:18px;margin:0 0 16px}
+.lab-statusbar{flex:0 0 auto;padding:10px 5px 0;border-top:1px solid #30394b;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;color:#8fa6c3;font-size:11px;direction:ltr}
+.lab-statusbar i{width:6px;height:6px;background:#76acb4;border-radius:50%;display:inline-block;margin-right:8px}
+@media(max-width:1090px){.lab-overview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lab-overview-grid .lab-card:last-child{grid-column:1/-1}.visual-issues{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.lab{padding:12px}.lab-shell{gap:10px}.lab-masthead{padding-top:0}.lab-masthead h1{font-size:clamp(25px,7vw,36px)}.lab-masthead p{font-size:12px}.lab-tab{font-size:12px;padding:9px 11px}.lab-stats{grid-template-columns:1fr 1fr;gap:7px}.lab-stats>div{padding:9px;flex-direction:column;align-items:flex-start}.lab-stats>div:last-child{grid-column:1/-1}.lab-stats strong{font-size:13px}.lab-overview-grid,.visual-issues,.lab-lesson-grid{grid-template-columns:1fr}.lab-overview-grid .lab-card:last-child{grid-column:auto}.lab-view-intro{flex-wrap:wrap}.lab-view-intro h2{font-size:19px}.lab-statusbar{font-size:10px}.lab-view .event-scroll{height:50vh}}
+@media(max-height:680px){.lab-shell{gap:7px}.lab-masthead h1{font-size:32px;margin:4px 0}.lab-tab{padding:7px 10px}.lab-view{padding-bottom:6px}}
+
 </style>
 </head>
 <body>
@@ -221,14 +285,86 @@ body,.country,.footer,.foot-links{background:#22242a}
  </div>
  <div class="signin-footer"><span>notGoogle · Security Lab</span><span>Demo credentials only · No Google authentication</span></div>
 </div></div>
-<section id="lab" class="lab" hidden aria-label="Security reveal"><button class="close-icon" type="button" id="closeLab" aria-label="סגירת מסך הניתוח" title="סגירה"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><h1>THIS WAS NOT GOOGLE.</h1><p class="sub">העיצוב יכול להרגיש מוכר, אבל זהות האתר נקבעת לפי הדומיין בשורת הכתובת, לא לפי הלוגו. זהו ניסוי notGoogle, והפעולות כאן מתועדות מקומית בלבד.</p><div class="lab-grid"><article class="lab-card"><h3>🧭 מסלול החיפוש</h3><ol><li>הקלדה בדף notGoogle</li><li>תיעוד מקומי של אירוע ההפניה</li><li>שליחת טופס GET לכתובת הרשמית של Google</li><li>Google מציג תוצאות בדומיין שלו</li></ol><p class="tiny">אין לנו גישה לתוצאות או לסיסמה של חשבון Google.</p></article><article class="lab-card"><h3>🔐 Credential Demo</h3><p>הדגמת סיסמה פיקטיבית שהוזנה בטופס הדמה. במתקפת פישינג אמיתית, שרת ששולט בטופס עשוי לקבל את הסיסמה.</p><div id="credentialResult">טרם הופעלה הדגמת ההתחברות.</div>
-<div id="demoNetworkTimeline" class="demo-timeline" hidden>
- <div><span class="timeline-node">1</span><strong>Browser form</strong><p>סיסמת דמה מוקלדת בשדה הניסוי</p></div>
- <div><span class="timeline-node">2</span><strong>JavaScript</strong><p>קוד הדף קורא את הערך ומשווה אותו לדוגמה המוגדרת מראש</p></div>
- <div><span class="timeline-node">3</span><strong>Network boundary</strong><p>בניסוי הזה: אין POST, אין שרת ואין העברת סיסמה</p></div>
- <div><span class="timeline-node">4</span><strong>Security insight</strong><p>אתר שמפעיל טופס שבשליטתו יכול עקרונית לקבל ערכים שהוזנו בו</p></div>
-</div></article><article class="lab-card event-card"><div class="event-card-header"><h3>📜 Event Log (local only)</h3><span id="eventCount" class="event-count">0 אירועים</span></div><p class="tiny">פעולות שנרשמו בדפדפן הזה בלבד</p><div class="event-scroll" role="region" tabindex="0" aria-label="יומן אירועים בגלילה פנימית"><pre id="eventsOutput">[]</pre></div><div class="event-actions"><button class="secondary" id="export">ייצוא JSON</button><button class="secondary" id="clear">מחיקת אירועים</button></div></article><article class="lab-card"><h3>🧩 כיצד בנינו את השחזור?</h3><ol><li>השווינו בין צילומי Google לצילומי notGoogle באותה תצוגה.</li><li>בדקנו מרווחים, צבעים, טיפוגרפיה, אייקונים ומבנה רכיבים.</li><li>חיפשנו ספריות SVG קיימות, בדקנו מקורות וריכזנו אותן בפרויקט.</li><li>השתמשנו ב־DevTools וב־Inspector כדי ללמוד על DOM, CSS, תגובות ללחיצה וניווט.</li><li>תיעדנו שינויים ותוצאות QA; לא הנחנו שכל דמיון חזותי מבטיח זהות או אבטחה.</li></ol><p class="tiny">הסיפור: Look → Inspect → Compare → Rebuild → Test → Reveal.</p></article><article class="lab-card"><h3>🛡️ כיצד מזהים?</h3><ul><li>בדקו את הדומיין המדויק, לא רק את העיצוב.</li><li>HTTPS אינו מוכיח שזה האתר שחשבתם.</li><li>סיסמאות יש להזין רק באתר או באפליקציה שאתם סומכים עליהם.</li><li>התחברות OAuth רשמית לא חושפת את הסיסמה לאתר צד שלישי.</li></ul></article>
-<article class="lab-card compare-card"><h3>🖼️ Visual Comparison</h3><p>השוו צילומי מסך של המקור ושל notGoogle באותו גודל ובאותו Zoom. אין העלאה לשרת.</p><ul class="delta-list"><li><strong>Typography</strong> — צורת האותיות ומרווחיהן שונים</li><li><strong>Search controls</strong> — האייקון בקצה השדה ותגובות Hover שונים</li><li><strong>Apps launcher</strong> — חלוקת הקבוצות, האייקונים והריווח</li><li><strong>Footer</strong> — הודעת האקלים וסדר השורות בתצוגות צרות</li></ul><button type="button" class="secondary" id="openComparison">פתח השוואת צילומים ↗</button><p class="tiny">פערים מתוך צילומי הייחוס, לא Pixel Diff אוטומטי.</p></article></div></section>
+<section id="lab" class="lab" hidden aria-label="notGoogle Security Reveal" dir="rtl">
+ <div class="lab-shell">
+  <header class="lab-masthead">
+   <div class="lab-heading">
+    <span class="lab-kicker"><span class="lab-live-dot"></span> notGoogle / SECURITY AWARENESS DEMO</span>
+    <h1>THIS WAS NOT GOOGLE<span class="lab-stop">.</span></h1>
+    <p>A familiar interface is not proof of a trusted website.</p>
+   </div>
+   <button class="close-icon" type="button" id="closeLab" aria-label="סגירת מסך הניתוח" title="סגירה">✕</button>
+  </header>
+  <nav class="lab-tabbar" role="tablist" aria-label="חלקי ניתוח האבטחה">
+   <button type="button" role="tab" class="lab-tab is-active" data-lab-tab="overview" aria-selected="true" aria-controls="labOverview">סקירה <span>01</span></button>
+   <button type="button" role="tab" class="lab-tab" data-lab-tab="events" aria-selected="false" aria-controls="labEvents">Event Log <span>02</span></button>
+   <button type="button" role="tab" class="lab-tab" data-lab-tab="visual" aria-selected="false" aria-controls="labVisual">השוואה חזותית <span>03</span></button>
+   <button type="button" role="tab" class="lab-tab" data-lab-tab="defense" aria-selected="false" aria-controls="labDefense">מה למדנו? <span>04</span></button>
+  </nav>
+  <div class="lab-workspace">
+   <div id="labOverview" class="lab-view" role="tabpanel" aria-label="סקירה">
+    <div class="lab-stats">
+      <div><span>אירועים בדפדפן</span><strong id="eventCountOverview">0</strong></div>
+      <div><span>אחסון הנתונים</span><strong>Local only</strong></div>
+      <div><span>סיסמאות אמיתיות</span><strong>Not collected</strong></div>
+    </div>
+    <div class="lab-overview-grid">
+     <article class="lab-card">
+      <h2><span aria-hidden="true">🧭</span> מסלול החיפוש</h2>
+      <ol class="lab-steps"><li>חיפוש מוקלד באתר notGoogle</li><li>אירוע נרשם מקומית בדפדפן</li><li>מתבצעת הפניית GET ל־Google</li><li>התוצאות מוצגות באתר Google הרשמי</li></ol>
+      <p class="tiny">ההדגמה אינה קוראת תוצאות חיפוש פרטיות של Google.</p>
+     </article>
+     <article class="lab-card">
+      <h2><span aria-hidden="true">🔐</span> Credential Demo</h2>
+      <p>טופס לימודי שמקבל רק חשבון וסיסמה פיקטיביים. אין שליחת סיסמאות לשרת.</p>
+      <div id="credentialResult" class="lab-credential">טרם הופעלה הדגמת ההתחברות.</div>
+      <div id="demoNetworkTimeline" class="demo-timeline" hidden>
+       <div><span class="timeline-node">1</span><strong>Browser form</strong><p>סיסמת הדוגמה הוזנה בטופס</p></div>
+       <div><span class="timeline-node">2</span><strong>JavaScript</strong><p>ערך הדמו נקרא מקומית</p></div>
+       <div><span class="timeline-node">3</span><strong>Network boundary</strong><p>אין בקשת POST ואין שרת</p></div>
+       <div><span class="timeline-node">4</span><strong>Takeaway</strong><p>יש לאמת לאיזה אתר מוסרים נתונים</p></div>
+      </div>
+     </article>
+     <article class="lab-card">
+      <h2><span aria-hidden="true">🛡️</span> שלושה סימנים לבדיקה</h2>
+      <ul class="lab-insights">
+       <li><strong>Domain</strong><span>בדקו את כתובת האתר המלאה.</span></li>
+       <li><strong>HTTPS</strong><span>הצפנה אינה הוכחה לזהות המותג.</span></li>
+       <li><strong>Sign-in</strong><span>התחברו רק במסך הרשמי של השירות.</span></li>
+      </ul>
+      <p class="tiny">האתר הוא דמו סטטי עם Event Log מקומי בלבד.</p>
+     </article>
+    </div>
+   </div>
+   <div id="labEvents" class="lab-view" role="tabpanel" aria-label="יומן אירועים" hidden>
+    <div class="lab-view-intro"><div><h2>מה האתר המקומי ראה?</h2><p>רשימת האירועים שנשמרו ב־localStorage בדפדפן הזה. הערכים אינם נשלחים לשרת.</p></div><span class="lab-pill" id="eventCount">0 אירועים</span></div>
+    <article class="lab-card event-card">
+     <div class="event-scroll" role="region" tabindex="0" aria-label="יומן אירועים בגלילה פנימית"><pre id="eventsOutput">[]</pre></div>
+     <div class="event-actions"><button class="secondary" id="export" type="button">ייצוא JSON</button><button class="secondary" id="clear" type="button">מחיקת אירועים</button></div>
+    </article>
+   </div>
+   <div id="labVisual" class="lab-view" role="tabpanel" aria-label="השוואת עיצוב" hidden>
+    <div class="lab-view-intro"><div><h2>עד כמה השחזור קרוב?</h2><p>אלה פערי התכנון שנותרו. אפשר להציג שני צילומי מסך זה לצד זה, באותה רזולוציה ועם אותו Zoom.</p></div><button type="button" class="lab-primary" id="openComparison">פתח השוואת צילומים ↗</button></div>
+    <div class="visual-issues">
+      <article class="lab-card"><span class="issue-no">01 / TYPOGRAPHY</span><h3>Wordmark</h3><p>צורת האותיות ומרווחיהן עדיין שונים מן הייחוס.</p></article>
+      <article class="lab-card"><span class="issue-no">02 / SEARCH</span><h3>Search Controls</h3><p>כפתור הפעולות ואנימציית AI Mode הם מימוש עצמאי.</p></article>
+      <article class="lab-card"><span class="issue-no">03 / APPS</span><h3>App Launcher</h3><p>הפריסה והאייקונים דומים, אך אינם זהים בכל גודל מסך.</p></article>
+      <article class="lab-card"><span class="issue-no">04 / RESPONSIVE</span><h3>Footer</h3><p>השורה הסביבתית וסדר הקישורים משתנים בחלונות צרים.</p></article>
+    </div>
+    <p class="tiny">זהו דוח השוואה איכותני — לא חישוב Pixel Diff אוטומטי.</p>
+   </div>
+   <div id="labDefense" class="lab-view" role="tabpanel" aria-label="תהליך השחזור ולמידת אבטחה" hidden>
+    <div class="lab-view-intro"><div><h2>איך בנינו ומה למדנו?</h2><p>הסבר להקלטה ולמצגת: השחזור נבנה מתוך התבוננות ומדידה, לא מגישה למערכות הפנימיות של Google.</p></div></div>
+    <div class="lab-lesson-grid">
+     <article class="lab-card"><h3>תהליך העבודה</h3><ol class="lab-steps"><li>Observe — צילום מסך ותצפית</li><li>Inspect — בדיקת DOM, CSS וגדלים</li><li>Compare — מדידה לצד המקור</li><li>Rebuild — בניית ממשק עצמאי ומאגר SVG</li><li>Test — בדיקות חיפוש, תפריטים ורספונסיביות</li><li>Reveal — חשיפת ההבדלים והסיכונים</li></ol></article>
+     <article class="lab-card"><h3>מה חשוב לזכור?</h3><ul class="lab-insights"><li><strong>זהות</strong><span>ממשק מוכר אינו הוכחה לזהות אתר.</span></li><li><strong>הפניות</strong><span>האתר שמקבל את השאילתה עשוי לקרוא אותה לפני מעבר לאתר אחר.</span></li><li><strong>אישורים</strong><span>מסך הדמו משתמש בפרטים פיקטיביים בלבד ואינו אוסף סיסמאות אמיתיות.</span></li><li><strong>אימות</strong><span>HTTPS מגן על התקשורת, לא על זהות המותג שמופיע בדף.</span></li></ul></article>
+    </div>
+   </div>
+  </div>
+  <footer class="lab-statusbar"><span><i></i> notGoogle • Educational security demo</span><span>Visual imitation ≠ Identity verification</span></footer>
+ </div>
+</section>
+
 <div class="modal compare-modal" id="compareModal" hidden role="dialog" aria-modal="true" aria-labelledby="compareTitle"><div class="compare-window">
 <header class="compare-header"><div><h2 id="compareTitle">השוואת צילומי מסך</h2><p>שתי תמונות מקומיות זו לצד זו. מומלץ להשתמש באותו viewport ו־Zoom.</p></div><button type="button" class="compare-dismiss" id="closeComparison" title="סגירה" aria-label="סגירת השוואה">✕</button></header>
 <div class="compare-pickers"><label>תמונת ייחוס <input id="referenceUpload" type="file" accept="image/png,image/jpeg,image/webp"></label><label>notGoogle <input id="replicaUpload" type="file" accept="image/png,image/jpeg,image/webp"></label></div>
@@ -240,7 +376,22 @@ body,.country,.footer,.foot-links{background:#22242a}
 (()=>{'use strict';
 const $=id=>document.getElementById(id);const KEY='notgoogle_events_v4';let events=[];try{events=JSON.parse(localStorage.getItem(KEY)||'[]');if(!Array.isArray(events))events=[]}catch{events=[]}
 function record(type,data={}){events.push({type,time:new Date().toISOString(),...data});events=events.slice(-80);try{localStorage.setItem(KEY,JSON.stringify(events))}catch{}if(!$('lab').hidden)render()}
-function render(){$('eventsOutput').textContent=JSON.stringify(events,null,2);$('eventCount').textContent=events.length+' אירועים'}
+function render(){$('eventsOutput').textContent=JSON.stringify(events,null,2);$('eventCount').textContent=events.length+' אירועים';$('eventCountOverview').textContent=events.length}
+function selectLabTab(name,focus=false){
+ const panels={overview:'labOverview',events:'labEvents',visual:'labVisual',defense:'labDefense'};
+ for(const [key,id] of Object.entries(panels)){$(id).hidden=key!==name}
+ for(const button of document.querySelectorAll('[data-lab-tab]')){
+  const active=button.dataset.labTab===name;button.classList.toggle('is-active',active);button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;
+  if(active&&focus)button.focus();
+ }
+}
+for(const tab of document.querySelectorAll('[data-lab-tab]')){tab.addEventListener('click',()=>selectLabTab(tab.dataset.labTab))}
+document.querySelector('.lab-tabbar').addEventListener('keydown',e=>{
+ if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;
+ const buttons=[...document.querySelectorAll('[data-lab-tab]')],current=buttons.findIndex(x=>x.classList.contains('is-active'));
+ let next=e.key==='Home'?0:e.key==='End'?buttons.length-1:(current+(e.key==='ArrowLeft'?1:-1)+buttons.length)%buttons.length;
+ e.preventDefault();selectLabTab(buttons[next].dataset.labTab,true)
+});
 function toast(message){$('toast').textContent=message;$('toast').hidden=false;setTimeout(()=>$('toast').hidden=true,3500)}
 function panel(id,button){const open=$(id).hidden;for(const p of ['appsPanel','profilePanel'])$(p).hidden=true;for(const b of ['appsToggle','profileToggle'])$(b).setAttribute('aria-expanded','false');$(id).hidden=!open;$(button).setAttribute('aria-expanded',String(open));if(open)record('menu.open',{menu:id})}
 $('appsToggle').onclick=()=>panel('appsPanel','appsToggle');$('profileToggle').onclick=()=>panel('profilePanel','profileToggle');
@@ -396,7 +547,7 @@ $('demoForm').addEventListener('submit',e=>{
  $('demoNetworkTimeline').hidden=false;
  closeDemo();reveal();
 });
-function reveal(){$('lab').hidden=false;render();document.body.style.overflow='hidden';record('lab.reveal')};function close(){$('lab').hidden=true;document.body.style.overflow=''}$('closeLab').onclick=close;$('revealFromProfile').onclick=reveal;
+function reveal(){$('lab').hidden=false;selectLabTab('overview');render();document.body.style.overflow='hidden';record('lab.reveal')};function close(){$('lab').hidden=true;document.body.style.overflow=''}$('closeLab').onclick=close;$('revealFromProfile').onclick=reveal;
 $('export').onclick=()=>{const blob=new Blob([JSON.stringify(events,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='notgoogle-events.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};$('clear').onclick=()=>{events=[];try{localStorage.removeItem(KEY)}catch{}render()};
 let escapes=[];let seq=[];const konami=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('quickActions').hidden){closeQuickActions();return}if(!$('inputToolsPanel').hidden){$('inputToolsPanel').hidden=true;return}if(!$('compareModal').hidden){closeComparison();return}if(!$('demoModal').hidden){closeDemo();return}if(!$('lab').hidden){close();return}escapes.push(Date.now());escapes=escapes.filter(t=>Date.now()-t<3000);if(escapes.length>=5){escapes=[];reveal()}}seq.push(e.key.length===1?e.key.toLowerCase():e.key);seq=seq.slice(-10);if(seq.join('|')===konami.join('|')){seq=[];reveal()}});
 let taps=[];$('touchReveal').addEventListener('click',()=>{taps.push(Date.now());taps=taps.filter(t=>Date.now()-t<3000);if(taps.length>=5){taps=[];reveal()}});
