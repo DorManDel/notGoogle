@@ -122,7 +122,7 @@ body, .country, .footer, .foot-links { background-color: var(--ng-page-bg); }
   gap: 11px 23px;
   min-width: 0;
 }
-.brand-note { bottom: 129px; left: 12px; }
+.brand-note { bottom: 129px; left: 12px; right: auto; width: max-content; max-width: calc(100vw - 24px); }
 @media (max-width: 900px) {
   .footer .footer-wrap .foot-links {
     gap: 15px;
