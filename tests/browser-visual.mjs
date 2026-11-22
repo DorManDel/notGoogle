@@ -29,22 +29,41 @@ try{
   await page.screenshot({path:'artifacts/browser-qa/'+v.label+'-home.png'});
   if(v.w>650){
    const ai=page.locator('#ai');
-   const aiDefault=await ai.evaluate(el=>({opacity:getComputedStyle(el,'::before').opacity,shape:getComputedStyle(el,'::before').backgroundImage}));
-   assert.equal(aiDefault.opacity,'0','AI colors must be hidden at rest on '+v.label);
-   assert.match(aiDefault.shape,/radial-gradient/,'Rainbow cluster CSS should be present');
-   const box=await ai.boundingBox();assert.ok(box,'AI pill must be visible at '+v.label);
+   await ai.evaluate(el=>{
+     if(el.classList.contains('is-loading'))el.classList.remove('is-loading');
+   });
+   await page.waitForTimeout(260);
+   const idle=await ai.evaluate(el=>({
+     visible:getComputedStyle(el,'::before').opacity,
+     gradient:getComputedStyle(el,'::before').backgroundImage,
+     mask:getComputedStyle(el,'::before').maskImage
+   }));
+   assert.equal(idle.visible,'0','Masked prism must be hidden when idle at '+v.label);
+   assert.match(idle.gradient,/conic-gradient/,'Fixed rainbow disc expected at '+v.label);
+   assert.match(idle.mask,/conic-gradient/,'Moving wedge mask expected at '+v.label);
+   const box=await ai.boundingBox();assert.ok(box,'AI button should be visible at '+v.label);
    await page.mouse.move(box.x+box.width*.22,box.y+box.height/2);
-   const left=await ai.evaluate(el=>({opacity:getComputedStyle(el,'::before').opacity,x:el.style.getPropertyValue('--ai-x')}));
+   await page.waitForTimeout(280);
+   const left=await ai.evaluate(el=>({
+      visible:getComputedStyle(el,'::before').opacity,
+      angle:parseFloat(el.style.getPropertyValue('--wedge-angle'))
+   }));
    await page.screenshot({path:'artifacts/browser-qa/'+v.label+'-ai-left.png'});
    await page.mouse.move(box.x+box.width*.78,box.y+box.height/2);
-   const right=await ai.evaluate(el=>({opacity:getComputedStyle(el,'::before').opacity,x:el.style.getPropertyValue('--ai-x')}));
+   const right=await ai.evaluate(el=>({
+      visible:getComputedStyle(el,'::before').opacity,
+      angle:parseFloat(el.style.getPropertyValue('--wedge-angle'))
+   }));
    await page.screenshot({path:'artifacts/browser-qa/'+v.label+'-ai-right.png'});
-   assert.ok(parseFloat(left.x)<35 && parseFloat(right.x)>65,'AI color cluster must follow pointer on '+v.label);
+   assert.ok(Math.abs(left.angle-right.angle)>90,'Light wedge must follow cursor direction '+v.label);
+   assert.equal(left.visible,'1','Prism should be visible on hover at '+v.label);
+   assert.equal(right.visible,'1','Prism should be visible on hover at '+v.label);
    await page.mouse.move(0,box.y+box.height+80);
-   await page.waitForTimeout(280);
+   await page.waitForTimeout(320);
    const off=await ai.evaluate(el=>getComputedStyle(el,'::before').opacity);
-   assert.equal(off,'0','AI cluster must vanish on pointer exit at '+v.label);
+   assert.equal(off,'0','Prism must disappear after hover at '+v.label);
   }
+
 
   await page.locator('#appsToggle').click();
   assert.equal(await page.locator('#appsPanel').isVisible(),true);
