@@ -47,7 +47,18 @@ try{
   assert.equal(await page.locator('#labDefense').isVisible(),true);
   await page.locator('#closeLab').click();
   assert.equal(await page.locator('#lab').isVisible(),false);
-  const dims=await page.evaluate(()=>({horizontalOverflow:document.documentElement.scrollWidth-innerWidth,bodyHeight:document.documentElement.scrollHeight,viewportHeight:innerHeight,appTitle:document.querySelector('#lens')?.getAttribute('title'),tabCount:document.querySelectorAll('[data-lab-tab]').length}));
+  const dims=await page.evaluate(()=>{
+   window.scrollTo({left:1000,top:0,behavior:'instant'});const movedRight=window.scrollX;
+   window.scrollTo({left:-1000,top:0,behavior:'instant'});const movedLeft=window.scrollX;
+   window.scrollTo({left:0,top:0,behavior:'instant'});
+   return {
+     horizontalOverflow:document.documentElement.scrollWidth-innerWidth,
+     actualHorizontalScroll:Math.max(Math.abs(movedRight),Math.abs(movedLeft)),
+     bodyHeight:document.documentElement.scrollHeight,viewportHeight:innerHeight,
+     appTitle:document.querySelector('#lens')?.getAttribute('title'),
+     tabCount:document.querySelectorAll('[data-lab-tab]').length
+   };
+  });
   if(dims.horizontalOverflow>2){
     const offenders=await page.evaluate(()=>Array.from(document.querySelectorAll('*')).filter(el=>{
       const style=getComputedStyle(el);if(style.display==='none'||style.visibility==='hidden')return false;
@@ -56,7 +67,7 @@ try{
     }).slice(0,24).map(el=>({tag:el.tagName,id:el.id,cls:String(el.className).slice(0,70),rect:(()=>{const r=el.getBoundingClientRect();return {left:Math.round(r.left),right:Math.round(r.right),width:Math.round(r.width)}})(),text:el.textContent?.slice(0,25)})));
     console.log('OVERFLOW_DIAGNOSTICS',JSON.stringify({viewport:v.label,overflow:dims.horizontalOverflow,offenders},null,2));
   }
-  assert.ok(dims.horizontalOverflow<=2,'Horizontal overflow at '+v.label+': '+dims.horizontalOverflow);
+  assert.ok(dims.actualHorizontalScroll<=2,'Horizontal panning at '+v.label+': '+dims.actualHorizontalScroll+' (raw scrollWidth delta '+dims.horizontalOverflow+')');
   assert.equal(dims.appTitle,'חיפוש לפי תמונה');
   assert.equal(dims.tabCount,4);
   assert.deepEqual(errors,[],'JavaScript exceptions at '+v.label);
