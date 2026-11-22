@@ -191,7 +191,7 @@ body,.country,.footer,.foot-links{background:#22242a}
  </div>
  <div class="signin-footer"><span>notGoogle · Security Lab</span><span>Demo credentials only · No Google authentication</span></div>
 </div></div>
-<section id="lab" class="lab" hidden aria-label="Security reveal"><button class="close-icon" type="button" id="closeLab" aria-label="סגירת מסך הניתוח" title="סגירה"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><h1>THIS WAS NOT GOOGLE.</h1><p class="sub">העיצוב יכול להרגיש מוכר, אבל זהות האתר נקבעת לפי הדומיין בשורת הכתובת, לא לפי הלוגו. זהו ניסוי notGoogle, והפעולות כאן מתועדות מקומית בלבד.</p><div class="lab-grid"><article class="lab-card"><h3>🧭 מסלול החיפוש</h3><ol><li>הקלדה בדף notGoogle</li><li>תיעוד מקומי של אירוע ההפניה</li><li>שליחת טופס GET לכתובת הרשמית של Google</li><li>Google מציג תוצאות בדומיין שלו</li></ol><p class="tiny">אין לנו גישה לתוצאות או לסיסמה של חשבון Google.</p></article><article class="lab-card"><h3>🔐 Credential Demo</h3><p>הדגמת סיסמה פיקטיבית שהוזנה בטופס הדמה. במתקפת פישינג אמיתית, שרת ששולט בטופס עשוי לקבל את הסיסמה.</p><div id="credentialResult">טרם הופעלה הדגמת ההתחברות.</div>
+<section id="lab" class="lab" hidden aria-label="Security reveal"><button class="close-icon" type="button" id="closeLab" aria-label="סגירת מסך הניתוח" title="סגירה"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><h1>THIS WAS NOT GOOGLE.</h1><p class="sub">העיצוב יכול להרגיש מוכר, אבל זהות האתר נקבעת לפי הדומיין בשורת הכתובת, לא לפי הלוגו. זהו ניסוי notGoogle, והפעולות כאן מתועדות מקומית בלבד.</p><div class="lab-grid"><article class="lab-card"><h3>🧭 מסלול החיפוש</h3><ol><li>הקלדה בדף notGoogle</li><li>תיעוד מקומי של אירוע ההפניה</li><li>שליחת טופס GET לכתובת הרשמית של Google</li><li>Google מציג תוצאות בדומיין שלו</li></ol><p class="tiny">אין לנו גישה לתוצאות או לסיסמה של חשבון Google.</p></article><article class="lab-card"><h3>🔐 Credential Demo</h3><p>הדגמת סיסמה פיקטיבית שהוזנה בטופס הדמה. במתקפת פישינג אמיתית, שרת ששולט בטופס עשוי לקבל את הסיסמה.</p><div id="credentialResult">טרם הופעלה הדגמת ההתחברות.</div>
 <div id="demoNetworkTimeline" class="demo-timeline" hidden>
  <div><span class="timeline-node">1</span><strong>Browser form</strong><p>סיסמת דמה מוקלדת בשדה הניסוי</p></div>
  <div><span class="timeline-node">2</span><strong>JavaScript</strong><p>קוד הדף קורא את הערך ומשווה אותו לדוגמה המוגדרת מראש</p></div>
@@ -248,6 +248,51 @@ $('keyboard').onclick=()=>{$('query').focus();record('search.focus')};
 $('lens').onclick=()=>{record('lens.open',{destination:'https://lens.google/'});window.location.href='https://lens.google/'};
 $('ai').onclick=()=>{record('ai.open',{destination:'https://www.google.com/search?udm=50'});window.location.href='https://www.google.com/search?udm=50'};
 $('mic').onclick=()=>{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast('זיהוי דיבור אינו נתמך בדפדפן הזה');return}const rec=new SR();rec.lang='he-IL';rec.onresult=e=>{$('query').value=e.results[0][0].transcript;record('voice.transcribed',{query:$('query').value})};rec.onerror=()=>toast('לא ניתן לבצע זיהוי דיבור');try{rec.start();toast('מקשיב…')}catch{toast('לא ניתן להפעיל מיקרופון')}};
+
+/* V5.4: pointer-aware gradient and local comparison viewer */
+const aiButton=$('ai');
+aiButton.addEventListener('pointermove',e=>{
+ const rect=aiButton.getBoundingClientRect();
+ aiButton.style.setProperty('--ai-x',((e.clientX-rect.left)/rect.width*100).toFixed(1)+'%');
+ aiButton.style.setProperty('--ai-y',((e.clientY-rect.top)/rect.height*100).toFixed(1)+'%');
+});
+aiButton.addEventListener('pointerleave',()=>{
+ aiButton.style.setProperty('--ai-x','50%');
+ aiButton.style.setProperty('--ai-y','50%');
+});
+const imageURLs={reference:null,replica:null};
+function setScreenshot(kind,file){
+ const img=$(kind==='reference'?'referenceImage':'replicaImage');
+ const placeholder=$(kind==='reference'?'referencePlaceholder':'replicaPlaceholder');
+ if(imageURLs[kind])URL.revokeObjectURL(imageURLs[kind]);
+ imageURLs[kind]=null;
+ img.hidden=true;img.removeAttribute('src');placeholder.hidden=false;
+ if(!file)return;
+ if(!['image/png','image/jpeg','image/webp'].includes(file.type)){toast('ניתן להציג PNG, JPG או WebP');return}
+ imageURLs[kind]=URL.createObjectURL(file);
+ img.src=imageURLs[kind];img.hidden=false;placeholder.hidden=true;
+}
+$('referenceUpload').addEventListener('change',e=>setScreenshot('reference',e.target.files[0]));
+$('replicaUpload').addEventListener('change',e=>setScreenshot('replica',e.target.files[0]));
+$('openComparison').onclick=()=>{$('compareModal').hidden=false;$('closeComparison').focus()};
+function closeComparison(){
+ $('compareModal').hidden=true;
+ $('referenceUpload').value='';$('replicaUpload').value='';
+ setScreenshot('reference',null);setScreenshot('replica',null);
+ $('openComparison').focus();
+}
+$('closeComparison').onclick=closeComparison;
+$('compareModal').addEventListener('click',e=>{if(e.target===$('compareModal'))closeComparison()});
+$('comparisonFullscreen').onclick=()=>{
+ const pane=document.querySelector('.compare-window');
+ if(document.fullscreenElement){document.exitFullscreen?.();return}
+ if(pane.requestFullscreen)pane.requestFullscreen().catch(()=>toast('מסך מלא אינו נתמך כאן'));
+ else toast('מסך מלא אינו נתמך בדפדפן הזה');
+};
+for(const id of ['referenceImage','replicaImage']){
+ $(id).addEventListener('click',()=>{const url=$(id).src;if(url)window.open(url,'_blank','noopener')});
+}
+
 const DEMO_ONLY_PASSWORD='LabOnly-123!';
 function resetDemo(){
  $('demoForm').reset();
@@ -295,7 +340,7 @@ $('demoForm').addEventListener('submit',e=>{
 });
 function reveal(){$('lab').hidden=false;render();document.body.style.overflow='hidden';record('lab.reveal')};function close(){$('lab').hidden=true;document.body.style.overflow=''}$('closeLab').onclick=close;$('revealFromProfile').onclick=reveal;
 $('export').onclick=()=>{const blob=new Blob([JSON.stringify(events,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='notgoogle-events.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};$('clear').onclick=()=>{events=[];try{localStorage.removeItem(KEY)}catch{}render()};
-let escapes=[];let seq=[];const konami=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('lab').hidden){close();return}escapes.push(Date.now());escapes=escapes.filter(t=>Date.now()-t<3000);if(escapes.length>=5){escapes=[];reveal()}}seq.push(e.key.length===1?e.key.toLowerCase():e.key);seq=seq.slice(-10);if(seq.join('|')===konami.join('|')){seq=[];reveal()}});
+let escapes=[];let seq=[];const konami=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('compareModal').hidden){closeComparison();return}if(!$('demoModal').hidden){closeDemo();return}if(!$('lab').hidden){close();return}escapes.push(Date.now());escapes=escapes.filter(t=>Date.now()-t<3000);if(escapes.length>=5){escapes=[];reveal()}}seq.push(e.key.length===1?e.key.toLowerCase():e.key);seq=seq.slice(-10);if(seq.join('|')===konami.join('|')){seq=[];reveal()}});
 let taps=[];$('touchReveal').addEventListener('click',()=>{taps.push(Date.now());taps=taps.filter(t=>Date.now()-t<3000);if(taps.length>=5){taps=[];reveal()}});
 })();
 </script>
