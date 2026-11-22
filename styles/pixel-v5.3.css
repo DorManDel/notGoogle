@@ -1,0 +1,136 @@
+/*
+ * notGoogle V5.3 — Screenshot-guided pixel pass
+ * Scope: home-page composition, colors and footer only.
+ * Evidence: user-provided 1919x1079 Chrome split-screen screenshot, 2026-11-22.
+ * The source reference is a screenshot, not an extracted Google stylesheet.
+ * Keep the recognizable notGoogle demo identity and fictional-login safeguards.
+ */
+:root {
+  --ng-page-bg: #22242a;
+  --ng-search-bg: #363840;
+  --ng-search-border: #4d4f56;
+  --ng-footer-rule: #3c4043;
+  --ng-button-bg: #303134;
+  --ng-v53-logo-gap: 31px;
+  --ng-v53-button-gap: 34px;
+  --ng-v53-languages-gap: 36px;
+  --bg: var(--ng-page-bg);
+  --panel: var(--ng-search-bg);
+}
+
+/* Explicit surface hierarchy; no layout changes to overlays or credential demo. */
+html, body { background-color: var(--ng-page-bg); }
+body, .country, .footer, .foot-links { background-color: var(--ng-page-bg); }
+.search-shell {
+  background: var(--ng-search-bg);
+  border: 1px solid var(--ng-search-border);
+  border-radius: 32px;
+}
+.search-shell:hover, .search-shell:focus-within { background: #3b3d45; }
+.action { background: var(--ng-button-bg); border-color: var(--ng-button-bg); }
+.country { border-bottom: 1px solid var(--ng-footer-rule); }
+/* The disclosure label must not cover the climate line or footer links. */
+.brand-note { bottom: 151px; left: 12px; }
+
+/* Make the vertical rhythm explicit rather than depending on inherited margins. */
+.logo { line-height: 1.12; }
+.search-form { margin-top: var(--ng-v53-logo-gap); }
+.actions { margin-top: var(--ng-v53-button-gap); }
+.langs { margin-top: var(--ng-v53-languages-gap); }
+
+/* The reference has a separate, centered climate message above footer links. */
+.foot-links {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 95px;
+  padding: 49px 30px 15px;
+}
+.foot-links > div { display: flex; gap: clamp(9px, 1.4vw, 25px); flex-wrap: wrap; }
+.climate-callout {
+  position: absolute;
+  inset-block-start: 16px;
+  left: 50%;
+  top: 16px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  direction: rtl;
+  max-width: calc(100% - 24px);
+  white-space: nowrap;
+  text-align: center;
+  font-size: 13px;
+  color: #bdc1c6;
+}
+
+/* Split desktop windows: screenshot panes ~940px wide. */
+@media (min-width: 840px) and (max-width: 1099px) {
+  .main { padding-top: clamp(142px, calc(14vh + 48px), 220px); }
+  .logo { font-size: clamp(87px, 10.2vw, 101px); letter-spacing: -6.2px; }
+  .search-form { width: min(100%, 690px); margin-top: 23px; }
+  .search-shell { height: 56px; }
+  .langs { margin-top: 43px; }
+}
+
+/* Tablet portrait and smaller split windows: prioritize readable controls. */
+@media (min-width: 601px) and (max-width: 839px) {
+  .main { padding-top: clamp(100px, calc(14vh + 16px), 186px); }
+  .search-form { width: min(100%, 690px); margin-top: 30px; }
+  .search-shell { height: 58px; }
+  .langs { margin-top: 35px; }
+}
+
+/* Counteract the older 1000–1400px experimental override without changing full desktop. */
+@media (min-width: 1100px) and (max-width: 1400px) {
+  .main { padding-top: clamp(90px, 11.5vh, 150px); }
+  .search-form { width: min(100%, 700px); margin-top: 34px; }
+}
+
+@media (min-width: 1401px) {
+  .search-form { width: min(100%, 720px); margin-top: 34px; }
+}
+
+/* The climate line must not obscure links when available width shrinks. */
+@media (max-width: 900px) {
+  .foot-links {
+    padding: 55px 17px 15px;
+    min-height: 112px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    row-gap: 15px;
+  }
+  .brand-note { bottom: 165px; }
+  .foot-links > div { justify-content: center; }
+  .climate-callout { top: 14px; white-space: normal; line-height: 1.45; }
+}
+@media (max-width: 600px) {
+  .footer .foot-links {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 0;
+    padding: 61px 12px 18px;
+    gap: 16px;
+  }
+  .foot-links > div { justify-content: center; gap: 10px 18px; }
+  .climate-callout { font-size: 12px; width: calc(100% - 24px); top: 12px; }
+  .country { padding: 11px 18px; }
+  .brand-note { bottom: 166px; max-width: 160px; }
+  .search-shell { border-radius: 30px; }
+  .langs { margin-top: 28px; }
+}
+@media (max-width: 350px) {
+  .footer .foot-links { padding-top: 70px; }
+}
+@media (max-height: 580px) and (min-width: 601px) {
+  .main { padding-top: 25px; }
+  .search-form { margin-top: 18px; }
+  .langs { margin-top: 17px; }
+}
