@@ -144,7 +144,7 @@ body,.country,.footer,.foot-links{background:#22242a}
 .ai-pill{position:relative;isolation:isolate;--ai-x:50%;--ai-y:50%;--ai-angle:0deg;--ai-glow:0;border:2px solid transparent;padding:7px 10px;background:linear-gradient(#454750,#454750) padding-box,conic-gradient(from var(--ai-angle),#4285f4,#9b83e8,#34a853,#fbbc05,#ea4335,#4285f4) border-box;transition:box-shadow .2s ease}
 .ai-pill::after{content:"";position:absolute;inset:-7px;border-radius:999px;pointer-events:none;z-index:-1;background:radial-gradient(circle at var(--ai-x) var(--ai-y),rgba(66,133,244,.52),rgba(65,185,149,.15) 44%,transparent 72%);filter:blur(8px);opacity:var(--ai-glow);transition:opacity .18s ease}
 .ai-pill:hover,.ai-pill:focus-visible{--ai-glow:1;box-shadow:0 1px 8px rgba(118,157,243,.24)}
-.ai-pill:hover{animation:ai-spectrum 4s linear infinite}
+.ai-pill:hover{animation:none}
 @property --ai-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
 @keyframes ai-spectrum{to{--ai-angle:360deg}}
 @media(max-width:700px){.lab{padding:70px 16px 24px}.lab-grid{grid-template-columns:minmax(0,1fr)}.compare-card{grid-column:auto}.compare-images{grid-template-columns:1fr}.delta-list{grid-template-columns:1fr}.event-scroll{height:180px}.compare-image-shell{max-height:43dvh}}
@@ -258,10 +258,33 @@ body,.country,.footer,.foot-links{background:#22242a}
 .tool:hover,.tool:focus-visible{background:transparent!important;filter:brightness(1.10)}
 .tool[data-tooltip]::after{content:attr(data-tooltip);position:absolute;bottom:calc(100% + 8px);left:50%;width:max-content;max-width:180px;white-space:nowrap;background:#eceef1;color:#202124;padding:6px 9px;border-radius:4px;font:12px/1.2 Arial,sans-serif;direction:rtl;opacity:0;transform:translate(-50%,4px);transition:opacity .12s ease,transform .12s ease;pointer-events:none;z-index:20;box-shadow:0 2px 10px #0004}
 .tool[data-tooltip]:hover::after,.tool[data-tooltip]:focus-visible::after{opacity:1;transform:translate(-50%,0)}
-.ai-pill{overflow:hidden;position:relative;border-width:1px;border-color:transparent;--ai-glow:0;background:linear-gradient(#454750,#454750) padding-box,conic-gradient(from var(--ai-angle),#4285f4,#966fe0,#34a853,#fbbc05,#e56b5d,#4285f4) border-box;box-shadow:none!important;contain:paint}
-.ai-pill::after{inset:0;border-radius:inherit;filter:none;z-index:0;mix-blend-mode:screen;background:radial-gradient(circle at var(--ai-x) var(--ai-y),rgba(95,158,255,.26),rgba(57,167,121,.13) 34%,transparent 72%);opacity:var(--ai-glow);transition:opacity .15s ease}
-.ai-pill:hover,.ai-pill:focus-visible{--ai-glow:1}
-.ai-pill:hover{animation:ai-spectrum 6s linear infinite}
+/* Cursor-revealed prism: neutral until hover, local light only around the pointer. */
+.ai-pill{
+  position:relative;isolation:isolate;overflow:hidden;contain:paint;
+  --ai-x:50%;--ai-y:50%;--ai-glow:0;--ai-edge-alpha:0;
+  border:1px solid transparent;box-shadow:none!important;
+  background:
+    linear-gradient(#454750,#454750) padding-box,
+    radial-gradient(ellipse 28px 25px at var(--ai-x) var(--ai-y),
+      rgba(66,133,244,var(--ai-edge-alpha)) 0%,
+      rgba(165,123,230,var(--ai-edge-alpha)) 28%,
+      rgba(52,168,83,var(--ai-edge-alpha)) 54%,
+      rgba(251,188,5,var(--ai-edge-alpha)) 76%,
+      transparent 100%) border-box;
+  transition:background-color .16s ease;
+}
+.ai-pill::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;
+  z-index:0;pointer-events:none;filter:none;mix-blend-mode:screen;
+  background:radial-gradient(ellipse 37px 28px at var(--ai-x) var(--ai-y),
+    rgba(111,160,255,.31),rgba(86,161,183,.18) 35%,
+    rgba(63,169,112,.08) 58%,transparent 82%);
+  opacity:var(--ai-glow);transition:opacity .18s ease;
+}
+.ai-pill:hover,.ai-pill:focus-visible{--ai-glow:1;--ai-edge-alpha:1}
+.ai-pill:hover{animation:none!important}
+.ai-pill:not(:hover):not(:focus-visible){--ai-glow:0;--ai-edge-alpha:0}
+
 @media(max-width:650px){#appsPanel{height:min(560px,calc(100dvh - 67px));max-height:calc(100dvh - 67px)}}
 @media(prefers-reduced-motion:reduce){#appsPanel{scroll-behavior:auto}.ai-pill:hover{animation:none}.ai-pill::after,.tool[data-tooltip]::after{transition:none}}
 
@@ -490,6 +513,11 @@ $('mic').onclick=()=>{const SR=window.SpeechRecognition||window.webkitSpeechReco
 /* V5.4: pointer-aware gradient and local comparison viewer */
 const aiButton=$('ai');
 aiButton.addEventListener('pointermove',e=>{
+ const rect=aiButton.getBoundingClientRect();
+ aiButton.style.setProperty('--ai-x',((e.clientX-rect.left)/rect.width*100).toFixed(1)+'%');
+ aiButton.style.setProperty('--ai-y',((e.clientY-rect.top)/rect.height*100).toFixed(1)+'%');
+});
+aiButton.addEventListener('pointerenter',e=>{
  const rect=aiButton.getBoundingClientRect();
  aiButton.style.setProperty('--ai-x',((e.clientX-rect.left)/rect.width*100).toFixed(1)+'%');
  aiButton.style.setProperty('--ai-y',((e.clientY-rect.top)/rect.height*100).toFixed(1)+'%');
