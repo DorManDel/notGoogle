@@ -48,6 +48,14 @@ try{
   await page.locator('#closeLab').click();
   assert.equal(await page.locator('#lab').isVisible(),false);
   const dims=await page.evaluate(()=>({horizontalOverflow:document.documentElement.scrollWidth-innerWidth,bodyHeight:document.documentElement.scrollHeight,viewportHeight:innerHeight,appTitle:document.querySelector('#lens')?.getAttribute('title'),tabCount:document.querySelectorAll('[data-lab-tab]').length}));
+  if(dims.horizontalOverflow>2){
+    const offenders=await page.evaluate(()=>Array.from(document.querySelectorAll('*')).filter(el=>{
+      const style=getComputedStyle(el);if(style.display==='none'||style.visibility==='hidden')return false;
+      const r=el.getBoundingClientRect();
+      return (r.right>innerWidth+1 || r.left < -1)&&r.width>0 && r.height>0
+    }).slice(0,24).map(el=>({tag:el.tagName,id:el.id,cls:String(el.className).slice(0,70),rect:(()=>{const r=el.getBoundingClientRect();return {left:Math.round(r.left),right:Math.round(r.right),width:Math.round(r.width)}})(),text:el.textContent?.slice(0,25)})));
+    console.log('OVERFLOW_DIAGNOSTICS',JSON.stringify({viewport:v.label,overflow:dims.horizontalOverflow,offenders},null,2));
+  }
   assert.ok(dims.horizontalOverflow<=2,'Horizontal overflow at '+v.label+': '+dims.horizontalOverflow);
   assert.equal(dims.appTitle,'חיפוש לפי תמונה');
   assert.equal(dims.tabCount,4);
