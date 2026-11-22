@@ -29,44 +29,12 @@ body, .country, .footer, .foot-links { background-color: var(--ng-page-bg); }
 .search-shell:hover, .search-shell:focus-within { background: #3b3d45; }
 .action { background: var(--ng-button-bg); border-color: var(--ng-button-bg); }
 .country { border-bottom: 1px solid var(--ng-footer-rule); }
-/* The disclosure label must not cover the climate line or footer links. */
-.brand-note { bottom: 151px; left: 12px; }
 
 /* Make the vertical rhythm explicit rather than depending on inherited margins. */
 .logo { line-height: 1.12; }
 .search-form { margin-top: var(--ng-v53-logo-gap); }
 .actions { margin-top: var(--ng-v53-button-gap); }
 .langs { margin-top: var(--ng-v53-languages-gap); }
-
-/* The reference has a separate, centered climate message above footer links. */
-.foot-links {
-  position: relative;
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 18px;
-  min-height: 95px;
-  padding: 49px 30px 15px;
-}
-.foot-links > div { display: flex; gap: clamp(9px, 1.4vw, 25px); flex-wrap: wrap; }
-.climate-callout {
-  position: absolute;
-  inset-block-start: 16px;
-  left: 50%;
-  top: 16px;
-  transform: translateX(-50%);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  direction: rtl;
-  max-width: calc(100% - 24px);
-  white-space: nowrap;
-  text-align: center;
-  font-size: 13px;
-  color: #bdc1c6;
-}
 
 /* Split desktop windows: screenshot panes ~940px wide. */
 @media (min-width: 840px) and (max-width: 1099px) {
@@ -95,42 +63,91 @@ body, .country, .footer, .foot-links { background-color: var(--ng-page-bg); }
   .search-form { width: min(100%, 720px); margin-top: 34px; }
 }
 
-/* The climate line must not obscure links when available width shrinks. */
-@media (max-width: 900px) {
-  .foot-links {
-    padding: 55px 17px 15px;
-    min-height: 112px;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    row-gap: 15px;
-  }
-  .brand-note { bottom: 165px; }
-  .foot-links > div { justify-content: center; }
-  .climate-callout { top: 14px; white-space: normal; line-height: 1.45; }
-}
-@media (max-width: 600px) {
-  .footer .foot-links {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 0;
-    padding: 61px 12px 18px;
-    gap: 16px;
-  }
-  .foot-links > div { justify-content: center; gap: 10px 18px; }
-  .climate-callout { font-size: 12px; width: calc(100% - 24px); top: 12px; }
-  .country { padding: 11px 18px; }
-  .brand-note { bottom: 166px; max-width: 160px; }
-  .search-shell { border-radius: 30px; }
-  .langs { margin-top: 28px; }
-}
-@media (max-width: 350px) {
-  .footer .foot-links { padding-top: 70px; }
-}
 @media (max-height: 580px) and (min-width: 601px) {
   .main { padding-top: 25px; }
   .search-form { margin-top: 18px; }
   .langs { margin-top: 17px; }
+}
+
+/* V5.3.1: structural footer wrapper; climate and navigation are separate rows. */
+.footer .footer-wrap {
+  width: min(100%, 1440px);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.footer .climate-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 35px;
+  padding: 8px 24px 3px;
+}
+.footer .footer-wrap .climate-callout {
+  position: static;
+  inset: auto;
+  left: auto;
+  top: auto;
+  transform: none;
+  width: auto;
+  max-width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  direction: rtl;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: center;
+  white-space: normal;
+  color: #bdc1c6;
+}
+.footer .footer-wrap .foot-links {
+  position: static;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 46px;
+  padding: 7px 30px 14px;
+  gap: 20px;
+}
+.footer .footer-wrap .foot-links > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 11px 23px;
+  min-width: 0;
+}
+.brand-note { bottom: 129px; left: 12px; }
+@media (max-width: 900px) {
+  .footer .footer-wrap .foot-links {
+    gap: 15px;
+    padding: 10px 18px 14px;
+    align-items: center;
+  }
+  .footer .footer-wrap .foot-links > div { gap: 9px 14px; }
+  .footer .climate-row { padding-inline: 16px; }
+  .brand-note { bottom: 137px; }
+}
+@media (max-width: 600px) {
+  .footer .climate-row {
+    min-height: 50px;
+    padding: 9px 14px 4px;
+  }
+  .footer .footer-wrap .climate-callout { font-size: 12px; line-height: 18px; }
+  .footer .footer-wrap .foot-links {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 12px 17px;
+    gap: 15px;
+  }
+  .footer .footer-wrap .foot-links > div { justify-content: center; gap: 8px 14px; }
+  .brand-note { bottom: 187px; left: 9px; }
 }
