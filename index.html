@@ -297,6 +297,20 @@ body{max-width:100%;overflow-x:clip}
  .lab-tab{font-size:12px;gap:5px;padding:9px 7px;flex:1 1 0;justify-content:center}
  .lab-tab span{font-size:9px}
 }
+
+/* One-click built-in historical screenshot comparison in Reveal */
+.lab-reference{margin:12px 0 16px;background:#151d2b;border:1px solid #35455d;border-radius:14px;overflow:hidden}
+.lab-reference-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;flex-wrap:wrap}
+.lab-reference-head>div{display:flex;flex-direction:column;gap:4px}
+.lab-reference-head strong{font-size:14px;color:#e7effd}
+.lab-reference-head span,.lab-reference figcaption{font-size:11px;color:#a7b7ce}
+.lab-reference-head>a{border-radius:8px;padding:8px 12px;border:1px solid #506280;white-space:nowrap;font-size:12px}
+.lab-reference-head>a:hover{background:#293a54}
+.lab-reference-image{display:block;margin:0 14px;border:1px solid #43516b;border-radius:9px;overflow:hidden;background:#171b23;line-height:0}
+.lab-reference-image img{display:block;width:100%;height:auto;max-height:31vh;object-fit:contain;object-position:center}
+.lab-reference figcaption{margin:0;padding:9px 16px 13px;line-height:1.5}
+@media(max-width:700px){.lab-reference-head{padding:10px 12px}.lab-reference-image{margin:0 10px}.lab-reference-image img{max-height:29vh}}
+
 </style>
 </head>
 <body>
@@ -397,7 +411,12 @@ body{max-width:100%;overflow-x:clip}
    </div>
    <div id="labVisual" class="lab-view" role="tabpanel" aria-label="השוואת עיצוב" hidden>
     <div class="lab-view-intro"><div><h2>עד כמה השחזור קרוב?</h2><p>אלה פערי התכנון שנותרו. אפשר להציג שני צילומי מסך זה לצד זה, באותה רזולוציה ועם אותו Zoom.</p></div><button type="button" class="lab-primary" id="openComparison">פתח השוואת צילומים ↗</button></div>
-    <div class="visual-issues">
+    <figure class="lab-reference">
+ <div class="lab-reference-head"><div><strong>Google מול notGoogle — צילום השוואה</strong><span>תיעוד מסבב קודם · לא צילום של הגרסה הנוכחית</span></div><a href="assets/comparisons/desktop-before-after.webp" target="_blank" rel="noopener noreferrer" aria-label="הגדל את צילום ההשוואה בחלון חדש">הגדל <span aria-hidden="true">↗</span></a></div>
+ <a class="lab-reference-image" href="assets/comparisons/desktop-before-after.webp" target="_blank" rel="noopener noreferrer" aria-label="פתח את צילום ההשוואה בגודל מלא"><img src="assets/comparisons/desktop-before-after.webp" alt="צילום היסטורי של notGoogle בצד שמאל מול Google בצד ימין, באותו מסך מחשב" loading="lazy" decoding="async"></a>
+ <figcaption>משמאל: notGoogle בתצוגה ישנה. מימין: Google בצילום הייחוס. ההשוואה ממחישה דמיון והבדלים חזותיים; היא אינה בדיקת Pixel Diff אוטומטית.</figcaption>
+ </figure>
+ <div class="visual-issues">
       <article class="lab-card"><span class="issue-no">01 / TYPOGRAPHY</span><h3>Wordmark</h3><p>צורת האותיות ומרווחיהן עדיין שונים מן הייחוס.</p></article>
       <article class="lab-card"><span class="issue-no">02 / SEARCH</span><h3>Search Controls</h3><p>כפתור הפעולות ואנימציית AI Mode הם מימוש עצמאי.</p></article>
       <article class="lab-card"><span class="issue-no">03 / APPS</span><h3>App Launcher</h3><p>הפריסה והאייקונים דומים, אך אינם זהים בכל גודל מסך.</p></article>
