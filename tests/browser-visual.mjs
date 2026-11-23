@@ -65,6 +65,31 @@ try{
   }
 
 
+  // Compact keyboard and single tooltip regression checks.
+  await page.locator('#keyboard').click();
+  assert.equal(await page.locator('#inputToolsPanel').isVisible(),true);
+  const panelStyle=await page.locator('#inputToolsPanel').evaluate(el=>({
+    background:getComputedStyle(el).backgroundColor,
+    keys:el.querySelectorAll('.keyboard-key').length
+  }));
+  assert.ok(panelStyle.keys>=30,'Expected a full keyboard at '+v.label);
+  assert.equal(panelStyle.background,'rgb(248, 249, 250)');
+  await page.getByRole('button',{name:'Shift'}).click();
+  assert.match(await page.locator('#inputModeLabel').innerText(),/ENGLISH/);
+  await page.locator('#inputKeys .keyboard-row:nth-child(2) button').first().click();
+  const typed=await page.locator('#query').inputValue();
+  assert.ok(typed.length>0,'Keyboard must type into search');
+  await page.getByRole('button',{name:'Ctrl + Alt'}).click();
+  assert.match(await page.locator('#inputModeLabel').innerText(),/סמלים/);
+  await page.locator('#closeInputTools').click();
+  assert.equal(await page.locator('#inputToolsPanel').isVisible(),false);
+  // Do not leave a search value that alters later screenshots.
+  await page.locator('#query').fill('');
+  for(const selector of ['#lens','#mic','#keyboard']){
+    const title=await page.locator(selector).getAttribute('title');
+    assert.equal(title,null,'No duplicate native title tooltip: '+selector);
+  }
+
   await page.locator('#appsToggle').click();
   assert.equal(await page.locator('#appsPanel').isVisible(),true);
   const appStats=await page.locator('#appsScroll').evaluate(el=>({
