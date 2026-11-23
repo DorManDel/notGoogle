@@ -1,6 +1,6 @@
 {
   "name": "Logo Candidate V2 — approved for the educational demo",
-  "status": "user-approved typography render; minor e tip difference acknowledged",
+  "status": "User-approved typography experiment, terminal repair 2026-11-23",
   "source": "User screenshots and settings 2026-11-23",
   "fontBase": "Product Sans Regular locally rasterized; no font binaries redistributed",
   "parameters": {
@@ -12,7 +12,8 @@
     "eOffsetXpx": 0,
     "eOffsetYpx": 0,
     "wordmarkWidthPercent": 100,
-    "wordmarkOffsetXpx": 0
+    "wordmarkOffsetXpx": 0,
+    "eTipTreatment": "Rounded terminal repair; source cut edge reconstructed, destructive wedge removed"
   },
   "comparison": {
     "mode": "split",

@@ -43,3 +43,11 @@ Last updated: 2026-11-23
 - The CI exercises AI Prism hover, app launcher scrolling and edit controls, keyboard modifier insertion, search tooltips, Reveal tabs and comparison assets.
 - Pages preview published successfully in [run #45205657932](https://github.com/DorManDel/notGoogle/actions/runs/45205657932).
 - Manual Safari/iPad visual sign-off and final icon review remain outside automated Chromium coverage.
+
+## Final correction sprint — 2026-11-23
+- [x] Repaired clipped final e using a rounded terminal and padded transparent canvas. Original font files remain unbundled.
+- [x] Full-screen opaque background for fictional account flow; retained one clear notGoogle demo identity and local-only fake credentials.
+- [x] Added fictional local helper actions for forgotten demo identifier, more information, and demo account creation.
+- [x] Historical visual-comparison sample now preloads on open, instead of showing two empty upload boxes. Optional uploads still support high-quality replacements.
+- [x] Smoke checks and four-viewport browser QA passed: https://github.com/DorManDel/notGoogle/actions/runs/45226440764
+- [ ] Replace the original 320x157 historical screenshot with a separately supplied high-resolution source; it is NOT sharp enough for full-screen slides.

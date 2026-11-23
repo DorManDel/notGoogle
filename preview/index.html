@@ -515,11 +515,31 @@ body{max-width:100%;overflow-x:clip}
 @media(max-width:700px){.lab-reference-image{margin:0 8px;min-height:200px;padding:8px}.lab-reference-image img{max-height:45dvh}.compare-image-shell{min-height:240px;max-height:56dvh}.compare-image-shell img{max-height:56dvh}}
 
 .ai-pill .ai-pill-text{display:inline-flex;align-items:center;justify-content:center;gap:5px;direction:ltr}.ai-pill-glyph{display:block;flex:none;transform:scale(.94)}
+
+/* Final UI sprint: isolated demo login and transparent padded logo */
+#demoModal{background:#202124!important;z-index:45}
+#demoModal .signin-card{background:#101114;box-shadow:0 12px 50px #0007;opacity:1}
+#demoModal .signin-brand-mark{width:29px;height:29px;border:1px solid #8ab4f8;border-radius:7px;display:grid;place-items:center;color:#b7d2fc;font-weight:bold;font-size:17px}
+#demoModal .demo-support-actions{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:12px}
+#demoModal .demo-support-actions button{background:transparent;border:0;color:#a8c7fa;font-size:12px;padding:5px 0;text-decoration:underline}
+#demoModal .signin-actions{flex-wrap:wrap}
+#demoModal .demo-assistance{margin:2px 0 15px;padding:12px 15px;border-radius:12px;background:#203044;color:#d4e5fd;font-size:12px;line-height:1.6;display:flex;align-items:flex-start;gap:15px}
+#demoModal .demo-assistance[hidden]{display:none}
+#demoModal .demo-assistance button{margin-inline-start:auto;flex:none;background:none;border:0;color:#d4e5fd;font-size:18px}
+.logo-canvas{width:clamp(300px,31vw,435px)!important;max-width:calc(100vw - 16px)!important;height:auto!important}
+@media(max-width:620px){.logo-canvas{width:min(435px,96vw)!important}#demoModal .signin-card{width:min(950px,100%);max-height:94dvh}}
+.compare-quick{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 0 4px;font-size:12px;color:#b4c9e4}
+.compare-quick button{color:#e4efff}
+.compare-image-shell.historic-split{position:relative;overflow:hidden;min-height:320px}
+.compare-image-shell.historic-split img{position:absolute!important;top:50%;width:200%!important;height:auto!important;max-height:none!important;max-width:none!important;object-fit:unset!important;transform:translateY(-50%)}
+.compare-image-shell.historic-split img[data-half="left"]{left:0;right:auto}
+.compare-image-shell.historic-split img[data-half="right"]{right:0;left:auto}
+
 </style>
 </head>
 <body>
 <header class="top"><div class="top-left"><button id="profileToggle" class="icon-btn" aria-label="חשבון דמו" aria-expanded="false"><span class="avatar" aria-hidden="true">D</span></button><button id="appsToggle" class="icon-btn" aria-label="אפליקציות" aria-expanded="false"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></button></div><nav class="top-links"><a href="https://www.google.com/imghp?hl=iw">חיפוש תמונות</a><a href="https://mail.google.com/">Gmail</a></nav></header>
-<div class="brand-note" aria-label="Educational replica">notGoogle · demo</div>
+<!--<div class="brand-note" aria-label="Educational replica">notGoogle · demo</div>-->
 <aside id="appsPanel" class="popover apps-popover" hidden role="dialog" aria-label="קטלוג אפליקציות לדוגמה">
  <div class="apps-scroll" id="appsScroll" tabindex="0" aria-label="רשימת אפליקציות בגלילה פנימית">
   <section class="apps-inner" aria-label="מועדפים">
@@ -533,7 +553,7 @@ body{max-width:100%;overflow-x:clip}
  <a class="apps-more-link" href="https://about.google/products/" target="_blank" rel="noopener noreferrer">עוד מ־Google</a>
 </aside>
 <aside id="profilePanel" class="popover" hidden><div class="profile-card"><div class="avatar">D</div><h3>חשבון הדגמה</h3><div class="tiny">אין חיבור לחשבון Google אמיתי</div><div class="profile-actions"><button id="demoLoginOpen">כניסה לחשבון דמה</button><a href="https://accounts.google.com/" target="_blank" rel="noopener noreferrer">מעבר להתחברות הרשמית של Google ↗</a><button id="revealFromProfile">הצג ניתוח אבטחה</button></div></div></aside>
-<main class="main"><canvas class="logo logo-canvas" id="approvedLogo" width="618" height="188" role="img" aria-label="Google-inspired typographic illustration">Google</canvas><form class="search-form" id="searchForm" action="https://www.google.com/search" method="GET"><div class="search-shell"><button class="search-add" id="addTool" type="button" aria-label="פעולות חיפוש נוספות" aria-expanded="false" aria-controls="quickActions" title="פעולות חיפוש נוספות">+</button><input name="q" id="query" type="search" aria-label="חיפוש" autocomplete="off"><button class="tool" type="button" id="keyboard" aria-label="כלי הזנה" data-tooltip="כלי הזנה"><img class="keyboard-icon" src="assets/icons/keyboard.svg" alt="" aria-hidden="true"></button><button class="tool" type="button" id="mic" aria-label="חיפוש קולי" data-tooltip="חיפוש קולי"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4m-4 0h8"/></svg></button><button class="tool" type="button" id="lens" aria-label="חיפוש לפי תמונה" data-tooltip="חיפוש לפי תמונה"><img class="lens-glyph" src="assets/icons/lens.svg" width="23" height="23" alt="" aria-hidden="true" loading="eager"></button><button class="ai-pill" type="button" id="ai" aria-label="מצב AI" data-tooltip="מצב AI"><span class="ai-pill-surface"><span class="ai-pill-text"><svg class="ai-pill-glyph" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M12 2.3 14.7 9.3 21.7 12 14.7 14.7 12 21.7 9.3 14.7 2.3 12 9.3 9.3Z" fill="currentColor"/><path d="M19 2.5 19.5 4.3 21.3 4.8 19.5 5.3 19 7.1 18.5 5.3 16.7 4.8 18.5 4.3Z" fill="currentColor" opacity=".85"/></svg><span>מצב AI</span></span></span></button></div><div class="quick-actions" id="quickActions" hidden><button type="button" id="quickImage">חיפוש לפי תמונה</button><button type="button" id="quickVoice">חיפוש קולי</button><button type="button" id="quickType">כלי הזנה</button></div><div class="input-panel" id="inputToolsPanel" hidden role="dialog" aria-label="מקלדת וירטואלית של הדמו">
+<main class="main"><canvas class="logo logo-canvas" id="approvedLogo" width="742" height="252" role="img" aria-label="Google-inspired typographic illustration">Google</canvas><form class="search-form" id="searchForm" action="https://www.google.com/search" method="GET"><div class="search-shell"><button class="search-add" id="addTool" type="button" aria-label="פעולות חיפוש נוספות" aria-expanded="false" aria-controls="quickActions" title="פעולות חיפוש נוספות">+</button><input name="q" id="query" type="search" aria-label="חיפוש" autocomplete="off"><button class="tool" type="button" id="keyboard" aria-label="כלי הזנה" data-tooltip="כלי הזנה"><img class="keyboard-icon" src="assets/icons/keyboard.svg" alt="" aria-hidden="true"></button><button class="tool" type="button" id="mic" aria-label="חיפוש קולי" data-tooltip="חיפוש קולי"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4m-4 0h8"/></svg></button><button class="tool" type="button" id="lens" aria-label="חיפוש לפי תמונה" data-tooltip="חיפוש לפי תמונה"><img class="lens-glyph" src="assets/icons/lens.svg" width="23" height="23" alt="" aria-hidden="true" loading="eager"></button><button class="ai-pill" type="button" id="ai" aria-label="מצב AI" data-tooltip="מצב AI"><span class="ai-pill-surface"><span class="ai-pill-text"><svg class="ai-pill-glyph" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M12 2.3 14.7 9.3 21.7 12 14.7 14.7 12 21.7 9.3 14.7 2.3 12 9.3 9.3Z" fill="currentColor"/><path d="M19 2.5 19.5 4.3 21.3 4.8 19.5 5.3 19 7.1 18.5 5.3 16.7 4.8 18.5 4.3Z" fill="currentColor" opacity=".85"/></svg><span>מצב AI</span></span></span></button></div><div class="quick-actions" id="quickActions" hidden><button type="button" id="quickImage">חיפוש לפי תמונה</button><button type="button" id="quickVoice">חיפוש קולי</button><button type="button" id="quickType">כלי הזנה</button></div><div class="input-panel" id="inputToolsPanel" hidden role="dialog" aria-label="מקלדת וירטואלית של הדמו">
 <div class="input-panel-header"><strong>מקלדת חיפוש</strong><button type="button" id="closeInputTools" aria-label="סגירת המקלדת">✕</button></div>
 <p class="input-mode" id="inputModeLabel" aria-live="polite">עברית</p>
 <div class="keyboard-rows" id="inputKeys" aria-label="מקשי המקלדת"></div>
@@ -543,19 +563,20 @@ body{max-width:100%;overflow-x:clip}
 <button id="touchReveal" class="touch-reveal" aria-label="פתיחת מצב הדגמה בלחיצות חוזרות" title="Tap 5 times to reveal"></button>
 <div class="modal" id="demoModal" hidden role="dialog" aria-modal="true" aria-labelledby="demoLoginHeading">
 <div class="signin-card" dir="rtl">
- <div class="signin-brand"><img src="assets/icons/google.svg" alt="" width="29" height="29"><span>notGoogle · חשבון ניסוי</span></div>
+ <div class="signin-brand"><span class="signin-brand-mark" aria-hidden="true">N</span><span>notGoogle · הדגמת כניסה מקומית</span></div>
  <div class="signin-layout">
   <div class="signin-intro">
    <h2 id="demoLoginHeading">כניסה לחשבון דמו</h2>
    <p>ממשק התחברות להדגמת אבטחה בלבד. אין להזין פרטי חשבון אמיתיים.</p>
-   <span class="signin-scope">LOCAL SIMULATION · NO NETWORK REQUEST</span>
+   <!-- <span class="signin-scope">LOCAL SIMULATION · NO NETWORK REQUEST</span> -->
   </div>
   <form id="demoForm" novalidate autocomplete="off">
    <section class="demo-step" id="demoStepEmail">
-    <label for="demoEmail">כתובת החשבון הפיקטיבי</label>
+    <label for="demoEmail">כתובת החשבון </label>
     <input id="demoEmail" type="text" value="demo@example.test" readonly aria-describedby="demoEmailHelp">
-    <p class="demo-help" id="demoEmailHelp">הכתובת מוכנה מראש. החשבון הזה אינו קיים ב־Google.</p>
-    <div class="signin-actions"><button type="button" class="secondary" id="demoCancel">ביטול</button><button type="button" class="primary" id="demoEmailNext">הבא</button></div>
+    <!-- <p class="demo-help" id="demoEmailHelp">הכתובת מוכנה מראש. החשבון הזה אינו קיים ב־Google.</p> -->
+    <div class="demo-support-actions"><button type="button" id="forgotDemoEmail">שכחת את כתובת האימייל?</button><button type="button" id="learnDemo">מידע נוסף על ההדגמה</button></div>
+    <div class="signin-actions"><button type="button" class="secondary" id="createDemoAccount">יצירת חשבון ניסוי</button><button type="button" class="primary" id="demoEmailNext">הבא</button><button type="button" class="secondary" id="demoCancel">סגירה</button></div>
    </section>
    <section class="demo-step" id="demoStepPassword" hidden>
     <button type="button" class="identity-chip" id="demoBackToEmail"><span class="mini-avatar">D</span><span dir="ltr">demo@example.test</span><span>⌄</span></button>
@@ -569,6 +590,7 @@ body{max-width:100%;overflow-x:clip}
    </section>
   </form>
  </div>
+ <div class="demo-assistance" id="demoAssistance" hidden role="status" aria-live="polite"><span id="demoAssistanceMessage"></span><button id="closeDemoAssistance" type="button" aria-label="סגור הסבר">✕</button></div>
  <div class="signin-footer"><span>notGoogle · Security Lab</span><span>Demo credentials only · No Google authentication</span></div>
 </div></div>
 <section id="lab" class="lab" hidden aria-label="notGoogle Security Reveal" dir="rtl">
@@ -659,7 +681,7 @@ body{max-width:100%;overflow-x:clip}
 
 <div class="modal compare-modal" id="compareModal" hidden role="dialog" aria-modal="true" aria-labelledby="compareTitle"><div class="compare-window">
 <header class="compare-header"><div><h2 id="compareTitle">השוואת צילומי מסך</h2><p>שתי תמונות מקומיות זו לצד זו. מומלץ להשתמש באותו viewport ו־Zoom.</p></div><button type="button" class="compare-dismiss" id="closeComparison" title="סגירה" aria-label="סגירת השוואה">✕</button></header>
-<div class="compare-pickers"><label>תמונת ייחוס <input id="referenceUpload" type="file" accept="image/png,image/jpeg,image/webp"></label><label>notGoogle <input id="replicaUpload" type="file" accept="image/png,image/jpeg,image/webp"></label></div>
+<div class="compare-quick"><button class="secondary" id="loadSavedComparison" type="button">הצג מיד את ההשוואה השמורה</button><span>צילום היסטורי קטן; להצגה חדה אפשר לטעון צילומים חדשים באיכות מלאה.</span></div><div class="compare-pickers"><label>תמונת ייחוס <input id="referenceUpload" type="file" accept="image/png,image/jpeg,image/webp"></label><label>notGoogle <input id="replicaUpload" type="file" accept="image/png,image/jpeg,image/webp"></label></div>
 <div class="compare-images"><figure><div class="compare-image-shell"><img id="referenceImage" alt="צילום הייחוס שנבחר" hidden><span id="referencePlaceholder">יש לבחור תמונת ייחוס</span></div><figcaption>Reference</figcaption></figure><figure><div class="compare-image-shell"><img id="replicaImage" alt="צילום notGoogle שנבחר" hidden><span id="replicaPlaceholder">יש לבחור צילום notGoogle</span></div><figcaption>Our Reconstruction</figcaption></figure></div>
 <footer class="compare-footer"><span>התמונות נפתחות בדפדפן בלבד ולא מועלות לשרת.</span><button type="button" class="secondary" id="comparisonFullscreen">הגדל למסך מלא</button></footer>
 </div></div>
@@ -674,22 +696,27 @@ const APPROVED_LOGO_BASE="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAmoAAAC8
 const APPROVED_LOGO_E="data:image/png;base64,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";
 function decodeLogoPart(uri){return new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=uri})}
 async function paintApprovedLogo(){
- const canvas=$('approvedLogo'),ctx=canvas.getContext('2d'),W=618,H=188;
+ const canvas=$('approvedLogo'),ctx=canvas.getContext('2d');
+ // The source glyph was cropped at x=618 before rotation. Give the final
+ // letter its own transparent breathing room and rebuild its clipped cap.
+ const W=canvas.width,H=canvas.height,padX=61,padY=32;
  const [base,e]=await Promise.all([decodeLogoPart(APPROVED_LOGO_BASE),decodeLogoPart(APPROVED_LOGO_E)]);
- ctx.clearRect(0,0,W,H);ctx.drawImage(base,0,0,W,H);
- const layer=document.createElement('canvas');layer.width=W;layer.height=H;
- const lc=layer.getContext('2d');
- const cx=(524+618)/2,cy=(44+146)/2;
- lc.save();lc.translate(cx,cy);lc.rotate(-24*Math.PI/180);lc.translate(-cx,-cy);
- lc.drawImage(e,0,0,W,H);
- const right=618,top=44,gh=146-44,trim=15,cutY=64,y=top+gh*cutY/100;
- lc.globalCompositeOperation='destination-out';lc.beginPath();
- lc.moveTo(right-trim,y+trim*.28);
- lc.lineTo(right+6,y-trim*.20);
- lc.lineTo(right+6,y+trim*2);
- lc.lineTo(right-trim*.48,y+trim*1.22);
- lc.closePath();lc.fill();lc.restore();
- ctx.drawImage(layer,0,0);
+ ctx.clearRect(0,0,W,H);
+ ctx.drawImage(base,padX,padY,618,188);
+ const letter=document.createElement('canvas');letter.width=W;letter.height=H;
+ const raw=letter.getContext('2d');
+ raw.drawImage(e,padX,padY,618,188);
+ // The upper terminal had 19 opaque pixels touching the original right edge;
+ // round it gently rather than cutting a polygonal notch from the middle.
+ raw.fillStyle='#fff';raw.beginPath();
+ raw.arc(padX+617,padY+89,9.5,0,Math.PI*2);
+ raw.fill();
+ const rotated=document.createElement('canvas');rotated.width=W;rotated.height=H;
+ const rc=rotated.getContext('2d');
+ const cx=padX+571,cy=padY+95;
+ rc.translate(cx,cy);rc.rotate(-24*Math.PI/180);rc.translate(-cx,-cy);
+ rc.drawImage(letter,0,0);
+ ctx.drawImage(rotated,0,0);
 }
 paintApprovedLogo().catch(()=>{const el=$('approvedLogo');if(el){const fallback=document.createElement('div');fallback.className='logo';fallback.textContent='Google';el.replaceWith(fallback)}});
 const KEY='notgoogle_events_v4';let events=[];try{events=JSON.parse(localStorage.getItem(KEY)||'[]');if(!Array.isArray(events))events=[]}catch{events=[]}
@@ -908,12 +935,22 @@ aiButton.addEventListener('animationend',e=>{
 });
 if(!reduceAiMotion)aiButton.classList.add('is-loading');
 const imageURLs={reference:null,replica:null};
+function loadSavedComparison(){
+ const url='assets/comparisons/desktop-before-after.webp';
+ for(const [kind,align] of [['reference','right'],['replica','left']]){
+  const img=$(kind==='reference'?'referenceImage':'replicaImage');
+  const label=$(kind==='reference'?'referencePlaceholder':'replicaPlaceholder');
+  img.hidden=false;img.src=url;img.dataset.half=align;label.hidden=true;
+  img.closest('.compare-image-shell').classList.add('historic-split');
+ }
+}
+
 function setScreenshot(kind,file){
  const img=$(kind==='reference'?'referenceImage':'replicaImage');
  const placeholder=$(kind==='reference'?'referencePlaceholder':'replicaPlaceholder');
  if(imageURLs[kind])URL.revokeObjectURL(imageURLs[kind]);
  imageURLs[kind]=null;
- img.hidden=true;img.removeAttribute('src');placeholder.hidden=false;
+ img.hidden=true;img.removeAttribute('src');img.removeAttribute('data-half');img.closest('.compare-image-shell').classList.remove('historic-split');placeholder.hidden=false;
  if(!file)return;
  if(!['image/png','image/jpeg','image/webp'].includes(file.type)){toast('ניתן להציג PNG, JPG או WebP');return}
  imageURLs[kind]=URL.createObjectURL(file);
@@ -921,7 +958,8 @@ function setScreenshot(kind,file){
 }
 $('referenceUpload').addEventListener('change',e=>setScreenshot('reference',e.target.files[0]));
 $('replicaUpload').addEventListener('change',e=>setScreenshot('replica',e.target.files[0]));
-$('openComparison').onclick=()=>{$('compareModal').hidden=false;$('closeComparison').focus()};
+$('openComparison').onclick=()=>{$('compareModal').hidden=false;loadSavedComparison();$('closeComparison').focus()};
+$('loadSavedComparison').onclick=loadSavedComparison;
 function closeComparison(){
  $('compareModal').hidden=true;
  $('referenceUpload').value='';$('replicaUpload').value='';
@@ -950,7 +988,7 @@ function resetDemo(){
  $('demoStepEmail').hidden=false;
  $('demoStepPassword').hidden=true;
 }
-function closeDemo(){ $('demoModal').hidden=true;resetDemo(); }
+function closeDemo(){ $('demoModal').hidden=true;resetDemo();$('demoAssistance').hidden=true; }
 function openDemo(){
  $('profilePanel').hidden=true;resetDemo();$('demoModal').hidden=false;
  record('demo.login.open',{scenario:'fictional_account',networkRequest:false});
@@ -962,6 +1000,11 @@ function demoNext(){
 }
 function demoBack(){ $('demoStepPassword').hidden=true;$('demoStepEmail').hidden=false;$('demoPassword').value='';}
 $('demoLoginOpen').onclick=openDemo;
+function explainDemo(message){$('demoAssistanceMessage').textContent=message;$('demoAssistance').hidden=false}
+$('forgotDemoEmail').onclick=()=>explainDemo('זהו חשבון ניסוי קבוע: demo@example.test. אין כאן שחזור כתובות אימייל או גישה לחשבונות אמיתיים.');
+$('learnDemo').onclick=()=>explainDemo('השלבים פועלים מקומית. אפשר להשתמש רק בחשבון הפיקטיבי ובסיסמת LabOnly-123!, בלי לשלוח פרטים לשרת.');
+$('createDemoAccount').onclick=()=>explainDemo('יצירת חשבון אמיתי אינה זמינה בהדגמה הזאת. משתמשים בחשבון הניסוי המוכן מראש.');
+$('closeDemoAssistance').onclick=()=>$('demoAssistance').hidden=true;
 $('demoCancel').onclick=closeDemo;
 $('demoEmailNext').onclick=demoNext;
 $('demoBackToEmail').onclick=demoBack;

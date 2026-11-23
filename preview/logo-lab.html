@@ -132,21 +132,13 @@ function drawCandidate(ctx,w,h,v){
  lc.save();lc.translate(cx,cy);lc.rotate(v.angle*Math.PI/180);
  const scale=v.esize/100;lc.scale(scale,scale);lc.translate(-cx,-cy);
  lc.drawImage(images['e'+idx],p.x+v.ex,p.y+v.ey,p.scaledWidth,p.scaledHeight);
+ // Smooth the source image's cropped upper terminal. The original raster
+ // ended at x=618, so cutting a polygon from it produced a visible notch.
+ // The finish control now adjusts the rounded cap, not a destructive wedge.
  if(v.trim>0){
-  // Cut a small beveled bite from the LOWER-RIGHT TERMINAL ONLY.
-  // Unlike the former full-width horizontal clip, this leaves the round bottom intact.
-  const right=p.x+c*p.scaleX+v.ex;
-  const top=p.y+b*p.scaleY+v.ey;
-  const gh=(d-b)*p.scaleY;
-  const y=top+gh*v.cutY/100;
-  const reach=v.trim;
-  lc.globalCompositeOperation='destination-out';
-  lc.beginPath();
-  lc.moveTo(right-reach,y+reach*.28);
-  lc.lineTo(right+6,y-reach*.20);
-  lc.lineTo(right+6,y+reach*2.0);
-  lc.lineTo(right-reach*.48,y+reach*1.22);
-  lc.closePath();lc.fill();
+  const tipX=p.x+617*p.scaleX+v.ex,tipY=p.y+89*p.scaleY+v.ey;
+  const radius=Math.max(1.2,Math.min(11,v.trim*.34));
+  lc.fillStyle='#fff';lc.beginPath();lc.arc(tipX,tipY,radius,0,Math.PI*2);lc.fill();
  }
  lc.restore();ctx.drawImage(layer,0,0);return p;
 }
