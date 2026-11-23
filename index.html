@@ -536,7 +536,6 @@ body{max-width:100%;overflow-x:clip}
 .compare-image-shell.historic-split img[data-half="right"]{right:0;left:auto}
 
 </style>
-<link rel="stylesheet" href="./comparison-sharp.css?v=2">
 </head>
 <body>
 <header class="top"><div class="top-left"><button id="profileToggle" class="icon-btn" aria-label="חשבון דמו" aria-expanded="false"><span class="avatar" aria-hidden="true">D</span></button><button id="appsToggle" class="icon-btn" aria-label="אפליקציות" aria-expanded="false"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></button></div><nav class="top-links"><a href="https://www.google.com/imghp?hl=iw">חיפוש תמונות</a><a href="https://mail.google.com/">Gmail</a></nav></header>
@@ -682,7 +681,7 @@ body{max-width:100%;overflow-x:clip}
 
 <div class="modal compare-modal" id="compareModal" hidden role="dialog" aria-modal="true" aria-labelledby="compareTitle"><div class="compare-window">
 <header class="compare-header"><div><h2 id="compareTitle">השוואת צילומי מסך</h2><p>שתי תמונות מקומיות זו לצד זו. מומלץ להשתמש באותו viewport ו־Zoom.</p></div><button type="button" class="compare-dismiss" id="closeComparison" title="סגירה" aria-label="סגירת השוואה">✕</button></header>
-<div class="compare-quick"><button class="secondary" id="loadSavedComparison" type="button">הצג מיד את ההשוואה השמורה</button><span>צילום היסטורי קטן; להצגה חדה אפשר לטעון צילומים חדשים באיכות מלאה.</span></div><div class="compare-pickers"><label>תמונת ייחוס <input id="referenceUpload" type="file" accept="image/png,image/jpeg,image/webp"></label><label>notGoogle <input id="replicaUpload" type="file" accept="image/png,image/jpeg,image/webp"></label></div>
+<div class="compare-quick"><button class="secondary" id="loadSavedComparison" type="button">הצג את הצילומים החדשים</button><span>שני צילומי המסך החדשים שסופקו ב־23.11.2026, ברוחב מקורי של 1919 פיקסלים. אפשר לטעון צילומים אחרים.</span></div><div class="compare-pickers"><label>תמונת ייחוס <input id="referenceUpload" type="file" accept="image/png,image/jpeg,image/webp"></label><label>notGoogle <input id="replicaUpload" type="file" accept="image/png,image/jpeg,image/webp"></label></div>
 <div class="compare-images"><figure><div class="compare-image-shell"><img id="referenceImage" alt="צילום הייחוס שנבחר" hidden><span id="referencePlaceholder">יש לבחור תמונת ייחוס</span></div><figcaption>Reference</figcaption></figure><figure><div class="compare-image-shell"><img id="replicaImage" alt="צילום notGoogle שנבחר" hidden><span id="replicaPlaceholder">יש לבחור צילום notGoogle</span></div><figcaption>Our Reconstruction</figcaption></figure></div>
 <footer class="compare-footer"><span>התמונות נפתחות בדפדפן בלבד ולא מועלות לשרת.</span><button type="button" class="secondary" id="comparisonFullscreen">הגדל למסך מלא</button></footer>
 </div></div>
@@ -911,12 +910,19 @@ aiButton.addEventListener('animationend',e=>{
 if(!reduceAiMotion)aiButton.classList.add('is-loading');
 const imageURLs={reference:null,replica:null};
 function loadSavedComparison(){
- const url='assets/comparisons/desktop-before-after.webp';
- for(const [kind,align] of [['reference','right'],['replica','left']]){
+ // 1919px user screenshots; no blurred historic thumbnail.
+ const base="assets/comparisons/";
+ for(const [kind,file] of [
+  ['reference','google-reference-2026-11-23.jpg'],
+  ['replica','notgoogle-current-2026-11-23.jpg']
+ ]){
   const img=$(kind==='reference'?'referenceImage':'replicaImage');
   const label=$(kind==='reference'?'referencePlaceholder':'replicaPlaceholder');
-  img.hidden=false;img.src=url;img.dataset.half=align;label.hidden=true;
-  img.closest('.compare-image-shell').classList.add('historic-split');
+  img.src=base+file;
+  img.hidden=false;
+  img.removeAttribute('data-half');
+  img.closest('.compare-image-shell').classList.remove('historic-split');
+  label.hidden=true;
  }
 }
 
@@ -1009,5 +1015,4 @@ let escapes=[];let seq=[];const konami=['ArrowUp','ArrowUp','ArrowDown','ArrowDo
 let taps=[];$('touchReveal').addEventListener('click',()=>{taps.push(Date.now());taps=taps.filter(t=>Date.now()-t<3000);if(taps.length>=5){taps=[];reveal()}});
 })();
 </script>
-<script src="./comparison-sharp.js?v=2"></script>
 </body></html>
