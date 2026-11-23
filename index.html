@@ -810,7 +810,7 @@ function deleteFromSearch(){
 }
 function createKeyboardKey(label,handler,cls=''){
  const button=document.createElement('button');button.type='button';button.className='keyboard-key '+cls;
- button.textContent=label;button.setAttribute('aria-label',label);button.addEventListener('click',handler);return button;
+ button.textContent=label;button.setAttribute('aria-label',label);button.addEventListener('click',event=>{event.stopPropagation();handler()});return button;
 }
 function renderInputTools(){
  const root=$('inputKeys');root.replaceChildren();
