@@ -9,7 +9,7 @@ The following SVG icons are checked into this repository so the app launcher can
 | `drive.svg`, `gmail.svg`, `calendar.svg`, `docs.svg`, `sheets.svg`, `meet.svg` | Community classic Google Workspace icon collection | https://github.com/dmitrii92/google-workspace-classic-icons-extension |
 | `google.svg`, `youtube.svg`, `gemini.svg`, `maps.svg`, `chrome.svg`, `photos.svg` | SuperTinyIcons | https://github.com/edent/SuperTinyIcons |
 | `news.svg`, `translate.svg` | Homarr dashboard-icons | https://github.com/homarr-labs/dashboard-icons |
-| `lens.svg` | Pictogrammers Material Design Icons (`google-lens`, deprecated brand icon) | https://github.com/Templarian/MaterialDesign/blob/master/svg/google-lens.svg |
+| `lens.svg` | Vector trace of the black-and-white icon reference provided by the project owner (2026-11-22) | User-supplied image reference; unofficial educational demo |
 | `keyboard.svg` | Google Material Design Icons | https://github.com/google/material-design-icons |
 
 Google and its products, service names, and product marks are trademarks of Google LLC.
