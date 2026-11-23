@@ -10,8 +10,8 @@ Last updated: 2026-11-23
 
 ## Next small, independently reviewable passes
 1. **Launcher layout — V5.8 implemented, pending reviewer visual approval**: expanded catalog to 41 links, fixed internal scroll with stable footer, 3-column responsive grid, edit/done/cancel favorites persisted only locally, full labels via tooltips. Original 15 local SVGs reused; newly added services use host-specific site favicons (which can vary) with non-emoji letter fallbacks. Confirm branding and order against reference screenshots before marking pixel-matched.
-2. **Input Tools**: standalone light keyboard demo with number, modifier and symbol rows; Shift/Caps/Alt simulation, Backspace, Space, input focus; mobile layout and accessibility. No real credentials.
-3. **Lens / hover labels**: inspect the supplied lens silhouette, check hover labels appear once beneath the control, test against desktop and mobile.
+2. **Input Tools — implemented, browser QA pending**: light fictional-only keyboard with numbers, Hebrew rows, Shift→temporary English, Caps→persistent English, Ctrl+Alt→symbols, Space and Backspace. Search-field-only insertion, no sign-in-field access.
+3. **Lens / hover labels — implemented, browser QA pending**: Lens SVG traced from the owner's supplied black-and-white screenshot; tooltips use one CSS-generated label below the icon, with duplicate native title attributes removed.
 4. **Security Reveal**: clearer overview → event log → visual comparison → defense; compact independently scrollable event list; demonstrate synthetic-only data flow.
 5. **Visual QA / sign-off**: compare at identical CSS viewport, DPR, zoom; record differences and screenshots; get explicit approval before merging.
 
@@ -29,3 +29,11 @@ Last updated: 2026-11-23
 - [ ] Visual reviewer confirmation of icon similarity for additional services
 - [ ] Safari iPad scroll testing and keyboard focus testing
 - [ ] Screenshot evidence for split/desktop/tablet/mobile (automated run may be pending)
+
+### Final UI pass (2026-11-23)
+- Lens screenshot traced into `assets/icons/lens.svg`; attribution updated to user-supplied reference.
+- Input Tools replaced with a white, locally functional, fictional keyboard with Shift, Caps Lock, Ctrl+Alt, Backspace, and Space.
+- Eliminated duplicate hover tooltip by removing native `title` from tool buttons and positioning the custom label below them.
+- Linked `Logo Candidate V1` comparison lab directly from the Reveal's visual tab. The product-font-based experimental wordmark is not installed as public login branding.
+- Frozen AI Prism and app launcher unchanged in this pass.
+- Remaining sign-off: Chromium desktop/split/tablet/mobile run, manual Safari/iPad review, final reviewer approval before PR merge.
