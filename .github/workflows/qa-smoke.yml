@@ -1,0 +1,24 @@
+name: notGoogle UI smoke checks
+on:
+  push:
+    branches:
+      - 'fix/**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate demo UI
+        run: node --test tests/qa-smoke.test.mjs
