@@ -138,7 +138,7 @@ try{
      horizontalOverflow:document.documentElement.scrollWidth-innerWidth,
      actualHorizontalScroll:Math.max(Math.abs(movedRight),Math.abs(movedLeft)),
      bodyHeight:document.documentElement.scrollHeight,viewportHeight:innerHeight,
-     appTitle:document.querySelector('#lens')?.getAttribute('title'),
+     appTitle:document.querySelector('#lens')?.getAttribute('data-tooltip'),
      tabCount:document.querySelectorAll('[data-lab-tab]').length
    };
   });
