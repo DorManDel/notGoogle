@@ -67,8 +67,21 @@ try{
 
   await page.locator('#appsToggle').click();
   assert.equal(await page.locator('#appsPanel').isVisible(),true);
-  const appStats=await page.locator('#appsPanel').evaluate(el=>({client:el.clientHeight,scroll:el.scrollHeight}));
+  const appStats=await page.locator('#appsScroll').evaluate(el=>({
+    client:el.clientHeight,scroll:el.scrollHeight,computedOverflow:getComputedStyle(el).overflowY
+  }));
+  const appCount=await page.locator('#appsPanel .app').count();
+  assert.ok(appCount>=38,'Expected expanded catalog at '+v.label+', got '+appCount);
+  assert.ok(appStats.scroll>appStats.client+80,'Inner launcher must scroll at '+v.label);
+  assert.equal(appStats.computedOverflow,'auto','Only the inner pane should scroll');
   await page.screenshot({path:'artifacts/browser-qa/'+v.label+'-apps.png'});
+  await page.locator('#appsScroll').evaluate(el=>{el.scrollTop=el.scrollHeight});
+  await page.screenshot({path:'artifacts/browser-qa/'+v.label+'-apps-bottom.png'});
+  await page.locator('#appsEdit').click();
+  assert.equal(await page.locator('#appsEditControls').isVisible(),true);
+  await page.locator('#appsCancel').click();
+  assert.equal(await page.locator('#appsEdit').isVisible(),true);
+  await page.locator('#appsScroll').evaluate(el=>{el.scrollTop=0});
   await page.locator('#profileToggle').click();
   await page.locator('#revealFromProfile').click();
   assert.equal(await page.locator('#lab').isVisible(),true);
