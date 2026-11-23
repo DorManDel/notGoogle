@@ -9,7 +9,7 @@ Last updated: 2026-11-23
 - Source font files are not redistributed.
 
 ## Next small, independently reviewable passes
-1. **Launcher layout**: internal scroll within capped-height panel; grouping; inventory of missing services; accurate but separately licensed icon assets; keyboard and mobile focus behavior. Capture same-viewport before/after.
+1. **Launcher layout — V5.8 implemented, pending reviewer visual approval**: expanded catalog to 41 links, fixed internal scroll with stable footer, 3-column responsive grid, edit/done/cancel favorites persisted only locally, full labels via tooltips. Original 15 local SVGs reused; newly added services use host-specific site favicons (which can vary) with non-emoji letter fallbacks. Confirm branding and order against reference screenshots before marking pixel-matched.
 2. **Input Tools**: standalone light keyboard demo with number, modifier and symbol rows; Shift/Caps/Alt simulation, Backspace, Space, input focus; mobile layout and accessibility. No real credentials.
 3. **Lens / hover labels**: inspect the supplied lens silhouette, check hover labels appear once beneath the control, test against desktop and mobile.
 4. **Security Reveal**: clearer overview → event log → visual comparison → defense; compact independently scrollable event list; demonstrate synthetic-only data flow.
@@ -20,3 +20,12 @@ Last updated: 2026-11-23
 - Keep educational identity visible and the demonstration authentication fictional-only.
 - Do not use shortening or address-bar tricks to imply the website belongs to Google.
 - Never publish Product Sans TTFs without appropriate distribution rights.
+
+### V5.8 launcher's QA checklist
+- [x] 41 data-driven app shortcuts and local-storage favorite preferences
+- [x] Inner panel scrollbar, footer visible independent of app list
+- [x] Distinct favorites section and rest of apps, 3-column layout
+- [x] Edit favorites controls (edit, save, cancel)
+- [ ] Visual reviewer confirmation of icon similarity for additional services
+- [ ] Safari iPad scroll testing and keyboard focus testing
+- [ ] Screenshot evidence for split/desktop/tablet/mobile (automated run may be pending)
