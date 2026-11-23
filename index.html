@@ -536,6 +536,7 @@ body{max-width:100%;overflow-x:clip}
 .compare-image-shell.historic-split img[data-half="right"]{right:0;left:auto}
 
 </style>
+<link rel="stylesheet" href="./comparison-sharp.css?v=2">
 </head>
 <body>
 <header class="top"><div class="top-left"><button id="profileToggle" class="icon-btn" aria-label="חשבון דמו" aria-expanded="false"><span class="avatar" aria-hidden="true">D</span></button><button id="appsToggle" class="icon-btn" aria-label="אפליקציות" aria-expanded="false"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></button></div><nav class="top-links"><a href="https://www.google.com/imghp?hl=iw">חיפוש תמונות</a><a href="https://mail.google.com/">Gmail</a></nav></header>
@@ -1008,4 +1009,5 @@ let escapes=[];let seq=[];const konami=['ArrowUp','ArrowUp','ArrowDown','ArrowDo
 let taps=[];$('touchReveal').addEventListener('click',()=>{taps.push(Date.now());taps=taps.filter(t=>Date.now()-t<3000);if(taps.length>=5){taps=[];reveal()}});
 })();
 </script>
+<script src="./comparison-sharp.js?v=2"></script>
 </body></html>
