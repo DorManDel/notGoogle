@@ -25,9 +25,12 @@ test('reveal button is X-only and event log scrolls internally',()=>{
 
 test('safe local comparison viewer and input tool labels',()=>{
  for(const id of ['openComparison','compareModal','referenceUpload','replicaUpload','closeComparison','addTool','quickActions','inputToolsPanel']) assert.ok(html.includes('id="'+id+'"'),id);
- assert.match(html, /title="חיפוש לפי תמונה"/);
- assert.match(html, /title="חיפוש קולי"/);
- assert.match(html, /title="כלי הזנה"/);
+ assert.match(html, /data-tooltip="חיפוש לפי תמונה"/);
+ assert.match(html, /data-tooltip="חיפוש קולי"/);
+ assert.match(html, /data-tooltip="כלי הזנה"/);
+ assert.doesNotMatch(html, /id="lens"[^>]*title=/);
+ assert.match(html, /id="inputModeLabel"/);
+ assert.match(html, /keyboardCaps=false/);
  assert.match(html, /URL\.createObjectURL\(file\)/);
  assert.match(html, /URL\.revokeObjectURL\(/);
 });
