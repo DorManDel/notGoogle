@@ -1,0 +1,31 @@
+{
+  "name": "Logo Candidate V2 — approved for the educational demo",
+  "status": "user-approved typography render; minor e tip difference acknowledged",
+  "source": "User screenshots and settings 2026-11-23",
+  "fontBase": "Product Sans Regular locally rasterized; no font binaries redistributed",
+  "parameters": {
+    "weightPx": 1,
+    "eRotationDeg": -24,
+    "eTipTrimPx": 15,
+    "eTrimYPercent": 64,
+    "eSizePercent": 100,
+    "eOffsetXpx": 0,
+    "eOffsetYpx": 0,
+    "wordmarkWidthPercent": 100,
+    "wordmarkOffsetXpx": 0
+  },
+  "comparison": {
+    "mode": "split",
+    "revealPercent": 78
+  },
+  "constraints": {
+    "scope": "standalone educational typography comparison lab",
+    "publishedMainHomepage": false,
+    "fontRedistribution": "no TTF files uploaded"
+  },
+  "nextSteps": [
+    "Use the accepted values, do not reopen typographic tuning",
+    "Preserve one clear demo identity and fictional account",
+    "Review security screenshot presentation"
+  ]
+}
