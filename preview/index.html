@@ -298,6 +298,15 @@ body{max-width:100%;overflow-x:clip}
  .lab-tab span{font-size:9px}
 }
 
+/* V16 comparison: open the built-in historical image as an actual presentation lightbox. */
+.comparison-lightbox[hidden]{display:none!important}
+.comparison-lightbox{position:fixed;inset:0;z-index:2000;background:#020814ed;display:grid;place-items:center;padding:clamp(12px,2vw,32px)}
+.comparison-lightbox-window{position:relative;width:min(96vw,1500px);max-height:95dvh;display:flex;flex-direction:column;align-items:stretch;gap:12px;border:1px solid #546783;background:#111b2b;padding:12px;border-radius:14px}
+.comparison-lightbox-head{display:flex;justify-content:space-between;align-items:center;gap:18px;font-size:14px;color:#e9f1fc}
+.comparison-lightbox-close{color:#eef4fb;background:#293a51;border:1px solid #60748c;border-radius:7px;padding:7px 14px;font-size:13px}
+.comparison-lightbox-window img{display:block;max-width:100%;max-height:77dvh;min-height:0;width:auto;height:auto;align-self:center;object-fit:contain}
+.comparison-lightbox-window p{font-size:11px;color:#b4c8d9;margin:0;line-height:1.4;text-align:center}
+
 /* One-click built-in historical screenshot comparison in Reveal */
 .lab-reference{margin:12px 0 16px;background:#151d2b;border:1px solid #35455d;border-radius:14px;overflow:hidden}
 .lab-reference-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;flex-wrap:wrap}
@@ -506,8 +515,8 @@ body{max-width:100%;overflow-x:clip}
    <div id="labVisual" class="lab-view" role="tabpanel" aria-label="השוואת עיצוב" hidden>
     <div class="lab-view-intro"><div><h2>עד כמה השחזור קרוב?</h2><p>אלה פערי התכנון שנותרו. אפשר להציג שני צילומי מסך זה לצד זה, באותה רזולוציה ועם אותו Zoom.</p></div><button type="button" class="lab-primary" id="openComparison">פתח השוואת צילומים ↗</button></div>
     <figure class="lab-reference">
- <div class="lab-reference-head"><div><strong>Google מול notGoogle — צילום השוואה</strong><span>תיעוד מסבב קודם · לא צילום של הגרסה הנוכחית</span></div><a href="assets/comparisons/desktop-before-after.webp" target="_blank" rel="noopener noreferrer" aria-label="הגדל את צילום ההשוואה בחלון חדש">הגדל <span aria-hidden="true">↗</span></a></div>
- <a class="lab-reference-image" href="assets/comparisons/desktop-before-after.webp" target="_blank" rel="noopener noreferrer" aria-label="פתח את צילום ההשוואה בגודל מלא"><img src="assets/comparisons/desktop-before-after.webp" alt="צילום היסטורי של notGoogle בצד שמאל מול Google בצד ימין, באותו מסך מחשב" width="320" height="157" loading="eager" decoding="async"></a>
+ <div class="lab-reference-head"><div><strong>Google מול notGoogle — צילום השוואה</strong><span>תיעוד מסבב קודם · לא צילום של הגרסה הנוכחית</span></div><a href="#comparison-enlarged" data-expand-comparison aria-label="הגדל את צילום ההשוואה על גבי האתר">הגדל <span aria-hidden="true">↗</span></a></div>
+ <a class="lab-reference-image" href="#comparison-enlarged" data-expand-comparison aria-label="הגדל את צילום ההשוואה על גבי האתר"><img src="assets/comparisons/desktop-before-after.webp" alt="צילום היסטורי של notGoogle בצד שמאל מול Google בצד ימין, באותו מסך מחשב" width="320" height="157" loading="eager" decoding="async"></a>
  <figcaption>משמאל: notGoogle בתצוגה ישנה. מימין: Google בצילום הייחוס. ההשוואה ממחישה דמיון והבדלים חזותיים; היא אינה בדיקת Pixel Diff אוטומטית.</figcaption>
  </figure>
  <div class="visual-issues">
@@ -530,6 +539,13 @@ body{max-width:100%;overflow-x:clip}
  </div>
 </section>
 
+<div id="comparisonEnlarged" class="comparison-lightbox" hidden role="dialog" aria-modal="true" aria-label="השוואה מוגדלת של שני צילומי מסך">
+ <div class="comparison-lightbox-window">
+  <div class="comparison-lightbox-head"><strong>Google מול notGoogle — השוואה מוגדלת</strong><button type="button" id="comparisonEnlargedClose" class="comparison-lightbox-close">סגור ✕</button></div>
+  <img src="assets/comparisons/desktop-before-after.webp" alt="השוואת צילום היסטורי בין notGoogle בצד שמאל ו-Google בצד ימין">
+  <p>זה צילום השוואה ישן וברזולוציה מוגבלת. הגדלה מאפשרת להציג אותו במסך, אך אינה מוסיפה פרטים שלא קיימים במקור.</p>
+ </div>
+</div>
 <div class="modal compare-modal" id="compareModal" hidden role="dialog" aria-modal="true" aria-labelledby="compareTitle"><div class="compare-window">
 <header class="compare-header"><div><h2 id="compareTitle">השוואת צילומי מסך</h2><p>שתי תמונות מקומיות זו לצד זו. מומלץ להשתמש באותו viewport ו־Zoom.</p></div><button type="button" class="compare-dismiss" id="closeComparison" title="סגירה" aria-label="סגירת השוואה">✕</button></header>
 <div class="compare-pickers"><label>תמונת ייחוס <input id="referenceUpload" type="file" accept="image/png,image/jpeg,image/webp"></label><label>notGoogle <input id="replicaUpload" type="file" accept="image/png,image/jpeg,image/webp"></label></div>
@@ -659,6 +675,22 @@ function setScreenshot(kind,file){
 }
 $('referenceUpload').addEventListener('change',e=>setScreenshot('reference',e.target.files[0]));
 $('replicaUpload').addEventListener('change',e=>setScreenshot('replica',e.target.files[0]));
+const comparisonEnlarged=$('comparisonEnlarged');
+const comparisonOpeners=document.querySelectorAll('[data-expand-comparison]');
+const closeLarge=()=>{
+ comparisonEnlarged.hidden=true;
+ if(document.activeElement?.closest?.('#comparisonEnlarged'))comparisonOpeners[0]?.focus();
+};
+comparisonOpeners.forEach(a=>a.addEventListener('click',event=>{
+ event.preventDefault();
+ comparisonEnlarged.hidden=false;
+ $('comparisonEnlargedClose').focus();
+}));
+$('comparisonEnlargedClose').addEventListener('click',closeLarge);
+comparisonEnlarged.addEventListener('click',event=>{if(event.target===comparisonEnlarged)closeLarge()});
+document.addEventListener('keydown',event=>{
+ if(event.key==='Escape'&&!comparisonEnlarged.hidden){event.stopPropagation();closeLarge()}
+});
 $('openComparison').onclick=()=>{$('compareModal').hidden=false;$('closeComparison').focus()};
 function closeComparison(){
  $('compareModal').hidden=true;
